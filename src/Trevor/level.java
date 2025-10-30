@@ -16,9 +16,12 @@ public class level {
 		}
 	}
 	public void levelOne(Graphics2D g2) { //Creates the first level of the game
-		new tile(0,750,3000,150,Color.GREEN).draw(g2);
-		new tile(350,400,400,75,Color.DARK_GRAY).draw(g2);
-		
+		new tile(0,744,3200,160,Color.GREEN).draw(g2); //Creates the floor in which the size is a multiple of 32 for scaling with character
+		new tile(330,394,32*12,64,Color.DARK_GRAY).draw(g2);//creates a platform with scale to the character
+		for(int k =0;k<=11;k++) { //creates a set of stairs that connects to the platform
+			new tile(714+(32*k),394+(k*32),32*4,352-(k*32),Color.BLUE).draw(g2);
+		}
+		//Scaling is based on size 32X32
 	}
 	
 }
