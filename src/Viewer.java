@@ -1,14 +1,23 @@
 import javax.swing.JFrame;
 
-public class Viewer {
 
+public class Viewer{
+	
+	
+	
+	
+	public Viewer() {
+		
+	}
 	public static void main(String[] args) {
+		Component comp=new Component();
 		JFrame frame = new JFrame("Viewer");
 		frame.setSize(600, 400);
 		//frame.pack(); // 1) compute preferred size
 		frame.setLocationRelativeTo(null); // 2) center on screen
 		
-		frame.add(new Component());
+		frame.add(comp);
+		comp.start();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
