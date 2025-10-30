@@ -1,5 +1,6 @@
 package Trevor;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class level {
@@ -15,7 +16,8 @@ public class level {
 		}
 	}
 	public void levelOne(Graphics2D g2) { //Creates the first level of the game
-		new tile(0,350,600,50).draw(g2);
+		new tile(0,750,3000,150,Color.GREEN).draw(g2);
+		new tile(350,400,400,75,Color.DARK_GRAY).draw(g2);
 		
 	}
 	
