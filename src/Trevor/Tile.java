@@ -5,19 +5,19 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
-public class tile {
+public class Tile {
 	private int x;
 	private int y;
 	private int width;
 	private int height;
 	private Color color;
-	public tile(int x,int y,int  width,int height) {
+	public Tile(int x,int y,int  width,int height) {
 		this.x=x; //X position of the tile
 		this.y=y; //y position of the tile
 		this.width=width;//width of the tile
 		this.height=height;//Height of the tile
 	}
-	public tile(int x,int y,int  width,int height, Color color) {
+	public Tile(int x,int y,int  width,int height, Color color) {
 		this.x=x; //X position of the tile
 		this.y=y; //y position of the tile
 		this.width=width;//width of the tile
