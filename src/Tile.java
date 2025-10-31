@@ -28,7 +28,7 @@ public class Tile {
 	    }
 	public void draw(Graphics2D g2) {
 		Rectangle2D.Double tile = new Rectangle2D.Double(x, y, width, height); 
-		g2.setColor(color);
+		g2.setColor(color); //Sets the color
         g2.fill(tile);//Fills the tile with a color to make it easier to see;
 		g2.draw(tile);//draws the tile on the screen
 	}

@@ -1,9 +1,10 @@
-package Evie;
+
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.List;
 
 public class Player {
     private int x, y;
@@ -13,7 +14,7 @@ public class Player {
     private boolean jumping = false;
     private final int gravity = 1;
     private final int jumpPower = -20;
-    private final int groundY = 550; // ground near bottom
+    private final int groundY = 550;
     private BufferedImage sprite;
 
     public Player(int x, int y) {
@@ -29,35 +30,37 @@ public class Player {
         }
     }
 
-    public void update(Platform platform) {
-        int prevY = y; // track previous position
+    public void update(List<Tile> tiles) {
+        int prevY = y;
         y += velocityY;
         velocityY += gravity;
 
         Rectangle playerBounds = new Rectangle(x, y, width, height);
-        Rectangle platformBounds = platform.getBounds();
 
-        // Check collision only while falling
-        if (velocityY >= 0 && playerBounds.intersects(platformBounds)) {
-            int playerBottomPrev = prevY + height;
-            int platformTop = platform.getTop();
+        // Check collisions with all tiles
+        for (Tile tile : tiles) {
+            Rectangle tileBounds = tile.getBounds();
 
-            // Player was above platform last frame, now intersecting = landed
-            if (playerBottomPrev <= platformTop) {
-                y = platformTop - height;
-                jumping = false;
-                velocityY = 0;
+            // only check if moving downward
+            if (velocityY >= 0 && playerBounds.intersects(tileBounds)) {
+                int playerBottomPrev = prevY + height;
+                int tileTop = tile.getTop();
+
+                if (playerBottomPrev <= tileTop) {
+                    y = tileTop - height;
+                    jumping = false;
+                    velocityY = 0;
+                }
             }
         }
 
-        // Ground collision
+        // ground collision
         if (y + height >= groundY) {
             y = groundY - height;
             jumping = false;
             velocityY = 0;
         }
     }
-
 
     public void jump() {
         if (!jumping) {

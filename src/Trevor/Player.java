@@ -29,7 +29,7 @@ public class Player {
         }
     }
 
-    public void update(tile platform) {
+    public void update(Tile platform) {
         int prevY = y; // track previous position
         y += velocityY;
         velocityY += gravity;

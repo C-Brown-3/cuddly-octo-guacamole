@@ -1,3 +1,4 @@
+package Trevor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -7,10 +8,10 @@ public class Level {
 	private Tile platform;
 	private Tile spawn=new Tile(0,744,64,-32);
 	private Tile stair;
-	private int levelNum=1;//int to determine what level we are on
 	
+	private int levelNum=1;//int to determine what level we are on
 	public Level() {
-		levelOne(); //Calls level 1
+		levelOne();
 	}
 	
 	public Level(int levelNum) {

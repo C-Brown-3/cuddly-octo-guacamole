@@ -6,18 +6,21 @@ import javax.swing.JComponent;
 import javax.swing.Timer;
 
 import Evie.Platform;
-import Nate.Enemy;
+
+
 
 
 public class Component extends JComponent{
-	
+	Enemy test=new Enemy();
+	Tile tile=new Tile( 100, 200, 200, 50);
 	
 	Timer timer;  
 
 	public Component() {
 		
 		timer = new Timer(30, e -> {
-			
+			test.moveToEdge(tile);
+			test.update(tile);
 			repaint();
 	      });
 	}
@@ -31,7 +34,10 @@ public class Component extends JComponent{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
-		new Level(g2d);
+		//new Level(g2d);
+		
+		test.draw(g2d);
+		tile.draw(g2d);
 		
 	}
 	

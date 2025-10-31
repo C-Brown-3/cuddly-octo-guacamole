@@ -1,4 +1,3 @@
-package Nate;
 
 
 import java.awt.Color;
