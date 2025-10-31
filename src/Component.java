@@ -33,6 +33,7 @@ public class Component extends JComponent{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
+		new Level(g2d);
 		test.draw(g2d);
 	}
 	
