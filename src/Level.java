@@ -1,9 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import Trevor.Tile;
-
-
 public class Level {
 	private int levelNum=1;//int to determine what level we are on
 	private Tile ground;
@@ -42,6 +39,6 @@ public class Level {
 			return stair;
 		}
 		return new Tile(0,744,64,-32);
-	}
+	}	
 	
 }
