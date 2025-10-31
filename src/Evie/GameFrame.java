@@ -2,6 +2,8 @@ package Evie;
 
 import javax.swing.*;
 
+import GamePanel;
+
 public class GameFrame extends JFrame {
     public GameFrame() {
         setTitle("Platform Jump Demo");
