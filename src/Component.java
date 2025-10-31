@@ -5,18 +5,27 @@ import java.awt.Rectangle;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
+import Evie.Platform;
+import Nate.Enemy;
+
 
 public class Component extends JComponent{
+	Enemy test=new Enemy();
+	Platform plat=new Platform( 100, 100, 200, 50);
 	
 	Timer timer;  
 
 	public Component() {
 		
 		timer = new Timer(30, e -> {
-	          
-	          repaint();
+			test.update(plat);
+			test.move();
+			repaint();
 	      });
 	}
+	
+	 public void start() { timer.start(); }     // NEW
+	 public void stop()  { timer.stop(); }   
 	
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -24,13 +33,10 @@ public class Component extends JComponent{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
-		this.drawSquare(g2d);
+		test.draw(g2d);
 	}
 	
-	private void drawSquare(Graphics2D g2d) {
-		Rectangle rect=new Rectangle(10,10,10,10);
-		g2d.draw(rect);
-	}
+	
 
 	
 
