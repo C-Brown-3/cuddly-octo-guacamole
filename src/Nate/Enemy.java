@@ -5,29 +5,67 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 
+import Evie.Platform;
+
 public class Enemy {
 	private int x;
 	private int y;
 	private int height;
-	private int widith;
+	private int width;
 	private Color color;
+	private static int gravity=3;
+	private int velocityX;
+	private int velocityY;
+	
 	
 	public Enemy() {
 		this.x=100;
 		this.y=100;
 		this.height=50;
-		this.widith=50;
+		this.width=50;
 		this.color=Color.RED;
+		this.velocityX=3;
+		this.velocityY=0;
 		
 	}
-	public Enemy(int x, int y) {
-		
+	public Enemy(int x, int y, int height, int widith, Color color) {
+		this.x=x;
+		this.y=y;
+		this.height=height;
+		this.width=widith;
+		this.color=color;
 	}
+	
 	public void move() {
-		this.x=this.x+10;
+		this.x=this.x+this.velocityX;
 	}
+	public void update(Platform platform) {
+        int prevY = y; // track previous position
+        y += velocityY;
+        velocityY += gravity;
+
+        Rectangle enemyBounds = new Rectangle(x, y, width, height);
+        Rectangle platformBounds = platform.getBounds();
+
+        // Check collision only while falling
+        if (velocityY >= 0 && enemyBounds.intersects(platformBounds)) {
+            int playerBottomPrev = prevY + height;
+            int platformTop = platform.getTop();
+
+            // Player was above platform last frame, now intersecting = landed
+            if (playerBottomPrev <= platformTop) {
+                y = platformTop - height;
+                velocityY = 0;
+            }
+        }
+     // Ground collision
+        if (y + height >= 600) {
+            y = 600 - height;
+            velocityY = 0;
+        }
+    }
 	public void draw(Graphics2D g2) {
-		Rectangle rect=new Rectangle(x,y,widith,height);
+		Rectangle rect=new Rectangle(x,y,width,height);
 		g2.setColor(this.color);
 		g2.fill(rect);
 		g2.draw(rect);
