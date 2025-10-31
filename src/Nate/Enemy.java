@@ -6,6 +6,8 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 
 import Evie.Platform;
+import Evie.Player;
+import Trevor.tile;
 
 public class Enemy {
 	private int x;
@@ -36,25 +38,30 @@ public class Enemy {
 		this.color=color;
 	}
 	
-	public void move() {
+	public void moveToEdge() {
 		this.x=this.x+this.velocityX;
 	}
-	public void update(Platform platform) {
+	public void chase(Player player) {
+		//if(player.getY()==this.y) {
+		//	velocityX=velocityX*(player.getX()-this.x)/Math.abs(player.getX()-this.x);
+		//}
+	}
+	public void update(tile tile) {
         int prevY = y; // track previous position
         y += velocityY;
         velocityY += gravity;
 
         Rectangle enemyBounds = new Rectangle(x, y, width, height);
-        Rectangle platformBounds = platform.getBounds();
+        Rectangle platformBounds = tile.getBounds();
 
         // Check collision only while falling
         if (velocityY >= 0 && enemyBounds.intersects(platformBounds)) {
             int playerBottomPrev = prevY + height;
-            int platformTop = platform.getTop();
+            int tileTop = tile.getTop();
 
             // Player was above platform last frame, now intersecting = landed
-            if (playerBottomPrev <= platformTop) {
-                y = platformTop - height;
+            if (playerBottomPrev <= tileTop) {
+                y = tileTop - height;
                 velocityY = 0;
             }
         }
