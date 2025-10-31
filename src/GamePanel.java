@@ -1,23 +1,24 @@
-package Evie;
+
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
     private Player player;
-    private Platform platform;
+    private Level level;
     private boolean leftPressed, rightPressed;
 
     public GamePanel() {
-        setPreferredSize(new Dimension(600, 600));
+        setPreferredSize(new Dimension(800, 600));
         setBackground(Color.WHITE);
 
         player = new Player(100, 500);
-        platform = new Platform(300, 350, 200, 20); // middle platform
+        level = new Level(1);
 
-        timer = new Timer(16, this); // ~60 FPS
+        timer = new Timer(16, this);
         timer.start();
 
         addKeyListener(this);
@@ -29,14 +30,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         if (leftPressed) player.moveLeft();
         if (rightPressed) player.moveRight();
-        player.update(platform);
+        player.update(level.getTiles());
         repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        platform.draw(g);
+        Graphics2D g2 = (Graphics2D) g;
+        level.draw(g2);
         player.draw(g);
     }
 
