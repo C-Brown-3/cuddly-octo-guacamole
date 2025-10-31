@@ -1,9 +1,15 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import Trevor.Tile;
+
 
 public class Level {
 	private int levelNum=1;//int to determine what level we are on
+	private Tile ground;
+	private Tile platform;
+	private Tile spawn=new Tile(0,744,64,-32);
+	private Tile stair;
 	public Level(Graphics2D g2) {
 		levelOne(g2);
 	}
@@ -22,7 +28,19 @@ public class Level {
 		}
 		//Scaling is based on size 32X32
 	}
-	public Tile getSpawn(Graphics2D g2) {
+	public Tile getTile(String name) {
+		if(name.equals("ground")) {
+			return ground;
+		}
+		if(name.equals("spawn")) {
+			return spawn;
+		}
+		if(name.equals("platform")) {
+			return platform;
+		}
+		if(name.equals("stair")) {
+			return stair;
+		}
 		return new Tile(0,744,64,-32);
 	}
 	
