@@ -22,5 +22,8 @@ public class Level {
 		}
 		//Scaling is based on size 32X32
 	}
+	public Tile getSpawn(Graphics2D g2) {
+		return new Tile(0,744,64,-32);
+	}
 	
 }
