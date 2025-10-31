@@ -1,3 +1,4 @@
+package Trevor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -10,8 +11,8 @@ import Nate.Enemy;
 
 public class Component extends JComponent{
 	Enemy test=new Enemy();
-	Platform plat=new Platform( 100, 100, 200, 50);
-	
+	Level testLevel = new Level();
+
 	Timer timer;  
 
 	public Component() {
@@ -32,7 +33,7 @@ public class Component extends JComponent{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
-		new Level(g2d);
+		testLevel.levelDraw(g2d);
 		test.draw(g2d);
 	}
 	

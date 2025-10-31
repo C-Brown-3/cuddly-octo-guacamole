@@ -10,7 +10,7 @@ public class Level {
 	private int levelNum=1;//int to determine what level we are on
 	
 	public Level() {
-		levelOne();
+		levelOne(); //Calls level 1
 	}
 	
 	public Level(int levelNum) {
