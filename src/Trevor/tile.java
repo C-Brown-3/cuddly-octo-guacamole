@@ -2,6 +2,7 @@ package Trevor;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 public class tile {
@@ -17,10 +18,16 @@ public class tile {
 		this.height=height;//Height of the tile
 		this.color = color;//sets a color for the tile
 	}
+	 public Rectangle getBounds() {
+	        return new Rectangle(x, y, width, height);
+	    }
 	public void draw(Graphics2D g2) {
 		Rectangle2D.Double tile = new Rectangle2D.Double(x, y, width, height); 
 		g2.setColor(color);
         g2.fill(tile);//Fills the tile with a color to make it easier to see;
 		g2.draw(tile);//draws the tile on the screen
 	}
+    public int getTop() {
+        return y;
+    }
 }
