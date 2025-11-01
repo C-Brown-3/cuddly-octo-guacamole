@@ -2,15 +2,14 @@
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Evie.Platform;
-import Evie.Player;
+
 
 
 
@@ -28,7 +27,7 @@ public class Enemy {
 	private boolean spriteLoaded = false;
 	
 	public Enemy() {
-		this.x=100;
+		this.x=110;
 		this.y=100;
 		this.height=64;
 		this.width=64;
@@ -45,7 +44,7 @@ public class Enemy {
 		}
 		
 	}
-	public Enemy(int x, int y, int height, int widith, Color color) {
+	public Enemy(int x, int y, int height, int widith) {
 		this.x=x;
 		this.y=y;
 		this.height=height;
@@ -55,6 +54,7 @@ public class Enemy {
 	
 	public void moveToEdge(Tile tile) {
         Rectangle platformBounds = tile.getBounds();
+        //checks if the enemy is at the edge of a platform and switchs direction if it is
         if(platformBounds.getMaxX()<this.x+this.velocityX+this.width || platformBounds.getMinX()>this.x+this.velocityX) {
         	this.velocityX=this.velocityX*(-1);
         }else {
@@ -94,6 +94,7 @@ public class Enemy {
     }
 	public void draw(Graphics2D g2) {
 		if (spriteLoaded)
+			//flips the sprite depending on the movement direction
 			if(this.velocityX<0)
 				g2.drawImage(sprite, this.x + this.width, this.y, -1*this.width, this.height, null);
 			else {
@@ -101,6 +102,7 @@ public class Enemy {
 			}
             
         else {
+        	//back up if sprite is not loaded
         	Rectangle rect=new Rectangle(x,y,width,height);
     		g2.setColor(Color.RED);
     		g2.fill(rect);

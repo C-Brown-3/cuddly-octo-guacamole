@@ -12,6 +12,7 @@ import Evie.Platform;
 
 public class Component extends JComponent{
 	Enemy test=new Enemy();
+	Collectable yarn = new Collectable();
 	Tile tile=new Tile( 100, 200, 200, 50);
 	
 	Timer timer;  
@@ -38,6 +39,7 @@ public class Component extends JComponent{
 		
 		test.draw(g2d);
 		tile.draw(g2d);
+		yarn.draw(g2d);
 		
 	}
 	
