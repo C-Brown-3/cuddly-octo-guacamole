@@ -42,11 +42,20 @@ public class Collectable {
 		}
 		
 	}
-	public Collectable(int x, int y, int height, int widith) {
+	public Collectable(int x, int y, int height, int width) {
 		this.x=x;
 		this.y=y;
 		this.height=height;
-		this.width=widith;
+		this.width=width;
+		
+		try {
+			sprite=ImageIO.read(Collectable.class.getResource("resources/yarn.png"));
+			spriteLoaded=true;
+		} catch (IOException e) {
+			spriteLoaded = false;
+		} catch (IllegalArgumentException e) {
+			spriteLoaded = false;
+		}
 		
 	}
 	
