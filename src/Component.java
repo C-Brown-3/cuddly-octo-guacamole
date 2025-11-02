@@ -5,8 +5,12 @@ import java.awt.*;
 
 
 
-
-
+/**
+ * Component (hopefully to be renamed GameComponent --Carson) controls the game logic. 
+ * 
+ * Component is responsible for draw calls to all drawable game elements, controlling the timer, and capturing key inputs.
+ * 
+ */
 
 public class Component extends JComponent implements KeyListener{
 	Enemy one=new Enemy(450, 200, 64, 64);
