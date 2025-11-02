@@ -1,9 +1,10 @@
+package Trevor;
 
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -36,8 +37,6 @@ public class Collectable {
 			sprite=ImageIO.read(Collectable.class.getResource("resources/yarn.png"));
 			spriteLoaded=true;
 		} catch (IOException e) {
-			spriteLoaded = false;
-		} catch (IllegalArgumentException e) {
 			spriteLoaded = false;
 		}
 		

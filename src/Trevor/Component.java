@@ -1,25 +1,28 @@
 package Trevor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
 import Evie.Platform;
-import Nate.Enemy;
+
+
 
 
 public class Component extends JComponent{
 	Enemy test=new Enemy();
-	Level testLevel = new Level();
-
+//	Collectable yarn = new Collectable();
+	Level level = new Level();
+	
 	Timer timer;  
 
 	public Component() {
 		
 		timer = new Timer(30, e -> {
-			test.update(plat);
-			test.move();
+			test.moveToEdge(level.getTiles());
+			test.update(level.getTiles());
 			repaint();
 	      });
 	}
@@ -33,8 +36,11 @@ public class Component extends JComponent{
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
-		testLevel.levelDraw(g2d);
-		test.draw(g2d);
+		//new Level(g2d);
+		level.draw(g2d);
+//		test.draw(g2d);
+//		yarn.draw(g2d);
+		
 	}
 	
 	
