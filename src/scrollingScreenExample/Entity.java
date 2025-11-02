@@ -1,4 +1,4 @@
-package Carson;
+package scrollingScreenExample;
 
 public abstract class Entity extends Drawable {
 	double dx;

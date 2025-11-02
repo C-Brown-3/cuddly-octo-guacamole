@@ -24,7 +24,7 @@ public class Player {
     private boolean jumping = false;
     private final int gravity = 1;
     private final int jumpPower = -20;
-    private final int groundY = 550;
+    private final int groundY = 744;
     private BufferedImage sprite;
 
     private boolean facingRight = true;

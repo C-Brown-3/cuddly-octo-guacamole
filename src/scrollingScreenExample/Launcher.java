@@ -1,4 +1,4 @@
-package Carson;
+package scrollingScreenExample;
 
 import javax.swing.SwingUtilities;
 

@@ -1,4 +1,4 @@
-package Carson;
+package scrollingScreenExample;
 
 public class Camera extends Entity{
 	/**
@@ -11,9 +11,9 @@ public class Camera extends Entity{
 	private Level level;
 	private int screenWidth;
 	private int screenHeight;
-	private static final double X_SCROLL_BOUNDARY = 64.0;
-	private static final double Y_UPPER_SCROLL_BOUNDARY = 64.0;
-	private static final double Y_LOWER_SCROLL_BOUNDARY = 64.0;
+	private static final double X_SCROLL_BOUNDARY = 0.0;
+	private static final double Y_UPPER_SCROLL_BOUNDARY = 0.0;
+	private static final double Y_LOWER_SCROLL_BOUNDARY = 0.0;
 	
 	public Camera (Entity entityWatched, int screenWidth, int screenHeight) {
 		super(0, 0);
@@ -42,10 +42,10 @@ public class Camera extends Entity{
 		this.level = level;
 	}
 	
-	public void calculateAndSetDrawXY(Entity entity) {
-		double drawX = entity.x - this.x;
-		double drawY = entity.y - this.y;
-		entity.updateDrawXY(drawX, drawY);
+	public void calculateAndSetDrawXY(Drawable drawable) {
+		double drawX = drawable.x - this.x;
+		double drawY = drawable.y - this.y;
+		drawable.updateDrawXY(drawX, drawY);
 	}
 
 	@Override
