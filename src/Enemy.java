@@ -12,10 +12,9 @@ import javax.imageio.ImageIO;
 /**
  * The Enemy class represents enemies in the game.
  * 
- * The player can move left or right, jump, and is affected by gravity. supports
- * sprite flipping when changing directions.
  * 
- * @author Evie Hipwood
+ * 
+ * @author Nate Nielsen
  * See CSSE220 Final Project Document for Resources Used
  */
 
@@ -50,6 +49,8 @@ public class Enemy {
 			spriteLoaded=true;
 		} catch (IOException e) {
 			spriteLoaded = false;
+		} catch (IllegalArgumentException e) {
+			spriteLoaded = false;
 		}
 		
 	}
@@ -59,10 +60,15 @@ public class Enemy {
 		this.height=height;
 		this.width=width;
 		
+		this.velocityX=3;
+		this.velocityY=0;
+		
 		try {
 			sprite=ImageIO.read(Enemy.class.getResource("resources/vacuum.png"));
 			spriteLoaded=true;
 		} catch (IOException e) {
+			spriteLoaded = false;
+		} catch (IllegalArgumentException e) {
 			spriteLoaded = false;
 		}
 		
