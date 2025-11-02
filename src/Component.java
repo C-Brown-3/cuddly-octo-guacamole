@@ -1,22 +1,20 @@
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import java.awt.event.*;
 import java.awt.*;
 
-import Evie.Platform;
+
 
 
 
 
 public class Component extends JComponent implements KeyListener{
-	Enemy test=new Enemy();
+	Enemy one=new Enemy(450, 200, 64, 64);
+	Enemy two=new Enemy(150, 450, 64, 64);
+	Enemy three=new Enemy(750, 450, 64, 64);
 	Collectable yarn = new Collectable();
-	Tile tile=new Tile( 100, 200, 200, 50);
-	Player player = new Player(50, 400); 
+	Player player = new Player(50, 1100); 
+	Level level=new Level();
 	Timer timer;  
 
 	 private boolean leftPressed = false;
@@ -26,12 +24,16 @@ public class Component extends JComponent implements KeyListener{
 		 setFocusable(true);
 	     addKeyListener(this);
 		timer = new Timer(30, e -> {
-			test.moveToEdge(tile);
-			test.update(tile);
-			
-			 player.update(java.util.List.of(tile));
-			 if (leftPressed) player.moveLeft();
-	         if (rightPressed) player.moveRight();
+			one.moveToEdge((Tile) (level.getTiles().get(1)));
+			one.update((Tile) (level.getTiles().get(1)));
+			two.moveToEdge((Tile) (level.getTiles().get(2)));
+			two.update((Tile) (level.getTiles().get(2)));
+			three.moveToEdge((Tile) (level.getTiles().get(3)));
+			three.update((Tile) (level.getTiles().get(3)));
+			//java.util.List.of(tile)
+			player.update(level.getTiles());
+			if (leftPressed) player.moveLeft();
+	        if (rightPressed) player.moveRight();
 			repaint();
 	      });
 	}
@@ -47,10 +49,13 @@ public class Component extends JComponent implements KeyListener{
 		Graphics2D g2d = (Graphics2D) g;
 		//new Level(g2d);
 		
-		test.draw(g2d);
-		tile.draw(g2d);
+		one.draw(g2d);
+		two.draw(g2d);
+		three.draw(g2d);
 		yarn.draw(g2d);
 		player.draw(g2d); 
+		level.levelDraw(g2d);
+		
 		
 	}
 	//keyboard controls

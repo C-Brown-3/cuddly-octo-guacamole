@@ -23,9 +23,9 @@ public class Level {
 	}
 	public void levelOne() { //Creates the first level of the game
 		ground = new Tile(0,744,3200,160,Color.GREEN); //Creates the floor in which the size is a multiple of 32 for scaling with character
-		platform1 = new Tile(330,394,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
-		platform2 = new Tile(530,494,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
-		platform3 = new Tile(330,594,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
+		platform1 = new Tile(400,350,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
+		platform2 = new Tile(100,550,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
+		platform3 = new Tile(700,550,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
 //		for(int k =0;k<=11;k++) { //creates a set of stairs that connects to the platform
 //			stair = new Tile(714+(32*k),394+(k*32),32*4,352-(k*32),Color.BLUE);
 //		}
@@ -38,7 +38,7 @@ public class Level {
 		return 650;
 	}
 	public ArrayList getTiles() {
-		ArrayList<Object> tiles = new ArrayList<>();
+		ArrayList<Tile> tiles = new ArrayList<>();
 		tiles.add(ground);
 		tiles.add(platform1);
 		tiles.add(platform2);
