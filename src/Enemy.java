@@ -98,15 +98,15 @@ public class Enemy {
             int playerBottomPrev = prevY + height;
             int tileTop = tile.getTop();
 
-            // Player was above platform last frame, now intersecting = landed
+            // Enemy was above platform last frame, now intersecting = landed
             if (playerBottomPrev <= tileTop) {
                 y = tileTop - height;
                 velocityY = 0;
             }
         }
      // Ground collision
-        if (y + height >= 600) {
-            y = 600 - height;
+        if (y + height >= 700) {
+            y = 700 - height;
             velocityY = 0;
         }
     }

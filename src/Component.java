@@ -9,7 +9,7 @@ import java.awt.*;
 
 
 public class Component extends JComponent implements KeyListener{
-	Enemy one=new Enemy(450, 200, 64, 64);
+	Enemy one=new Enemy(500, 200, 64, 64);
 	Enemy two=new Enemy(150, 450, 64, 64);
 	Enemy three=new Enemy(750, 450, 64, 64);
 	Collectable yarn = new Collectable(500, 280, 64, 64);
