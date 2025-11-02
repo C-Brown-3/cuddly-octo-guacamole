@@ -22,7 +22,7 @@ public class Level {
 		}
 	}
 	public void levelOne() { //Creates the first level of the game
-		ground = new Tile(0,744,3200,160,Color.GREEN); //Creates the floor in which the size is a multiple of 32 for scaling with character
+		ground = new Tile(0,744,1500,160,Color.GREEN); //Creates the floor in which the size is a multiple of 32 for scaling with character
 		platform1 = new Tile(400,350,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
 		platform2 = new Tile(100,550,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
 		platform3 = new Tile(700,550,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
