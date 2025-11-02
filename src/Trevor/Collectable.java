@@ -1,0 +1,68 @@
+package Trevor;
+
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+
+
+
+
+public class Collectable {
+	private int x;
+	private int y;
+	private int height;
+	private int width;
+	
+	
+	
+	private BufferedImage sprite;
+	private boolean spriteLoaded = false;
+	
+	public Collectable() {
+		this.x=200;
+		this.y=200;
+		this.height=64;
+		this.width=64;
+		
+		
+		
+		try {
+			sprite=ImageIO.read(Collectable.class.getResource("resources/yarn.png"));
+			spriteLoaded=true;
+		} catch (IOException e) {
+			spriteLoaded = false;
+		}
+		
+	}
+	public Collectable(int x, int y, int height, int widith) {
+		this.x=x;
+		this.y=y;
+		this.height=height;
+		this.width=widith;
+		
+	}
+	
+	
+	public void draw(Graphics2D g2) {
+		if (spriteLoaded)	
+			g2.drawImage(sprite, x, y, width, height, null);
+        else {
+        	//back up if sprite is not loaded
+        	
+        	
+        		
+    		g2.setColor(Color.YELLOW);
+    		g2.fillOval(x,y,64,64);
+    		
+        }
+		
+		
+	}
+}
