@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
         cameraTestEntity = new CameraTestEntity(0.0, 0.0);
         camera = new Camera(cameraTestEntity, this.getWidth(), this.getHeight());
-    	thing = new ThingThatCanBeDrawn();
+    	thing = new ThingThatCanBeDrawn(64, 64, Color.red, 0, 0);
         
         gameComponent = new GameComponent(cameraTestEntity, camera, thing);
         
@@ -39,11 +39,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     // Make Animations happen at the same time, update all models
     private void tick() {
     	this.updateDrawCoordinates();
-    	this.gameComponent.tick();
+    	this.gameComponent.tick(leftPressed, rightPressed);
+    	this.paintComponent(getGraphics());
     }
-    
-    private void updateDrawCoordinates() {
-    	
+
+	private void updateDrawCoordinates() {
+    	camera.calculateAndSetDrawXY(thing);
     }
 
     @Override
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        thing.draw(g2);
         
     }
 
