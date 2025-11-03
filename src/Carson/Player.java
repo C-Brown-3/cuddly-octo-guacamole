@@ -130,7 +130,7 @@ public class Player extends Entity{
                 g2.drawImage(sprite, drawX + width, drawY, -width, height, null);
             }
         } else {
-            g2.setColor(Color.RED);
+            g2.setColor(Color.YELLOW);
             System.out.println(drawX + ", " + drawY);
             g2.fillRect(drawX, drawY, width, height);
         }

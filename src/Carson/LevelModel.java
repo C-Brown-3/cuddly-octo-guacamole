@@ -12,11 +12,10 @@ import java.util.ArrayList;
  * for loading new levels and reading level description txt files.
  */
 public class LevelModel implements TopLevelClass{
-	private Level activeLevel = new Level(null, null, 0, 0);
+	private Level activeLevel;
 
 	public LevelModel() {
 		// TODO Auto-generated constructor stub
-		loadLevel(1);
 	}
 
 	@Override
@@ -61,7 +60,7 @@ public class LevelModel implements TopLevelClass{
 			ArrayList<Enemy> enemies = new ArrayList<>();
 			double spawnX = 0, spawnY = 0;
 			String line;
-			int j = 0;
+			int j = -1;
 			while ((line = in.readLine()) !=  null) {
 				j += 1;
 				for (int i = 0; i < line.length(); i ++) {

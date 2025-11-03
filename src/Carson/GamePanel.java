@@ -62,9 +62,11 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
      */
     private void tick() {
 		// TODO Auto-generated method stub
-		updateDrawCoordinates();
-		gameComponent.tick();
-		this.paint(getGraphics());
+    	gameComponent.tick();
+    	
+    	updateDrawCoordinates();
+		
+		this.repaint();
 	}
 
 	private void updateDrawCoordinates() {
