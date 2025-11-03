@@ -27,6 +27,9 @@ public class LevelModel implements TopLevelClass{
 	@Override
 	public void draw(Graphics2D g2) {
 		// TODO Auto-generated method stub
+		if (activeLevel == null) {
+			return;
+		}
 		activeLevel.draw(g2);
 	}
 	

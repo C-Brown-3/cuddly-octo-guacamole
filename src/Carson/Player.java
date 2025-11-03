@@ -17,8 +17,7 @@ import java.util.List;
  * @author Evie Hipwood
  * See CSSE220 Final Project Document for Resources Used
  */
-public class Player extends Entity{
-    private int width, height;
+public class Player extends Entity implements TopLevelClass{
     private int velocityY = 0;
     private int speed = 5;
     private boolean jumping = false;
@@ -68,7 +67,7 @@ public class Player extends Entity{
         y += velocityY;
         velocityY += gravity;
 
-        Rectangle playerBounds = new Rectangle(drawX, drawY, width, height);
+        Rectangle playerBounds = new Rectangle(drawX, drawY, (int) width, (int) height);
 
         // Check collisions with all tiles
         for (Tile tile : tiles) {
@@ -76,7 +75,7 @@ public class Player extends Entity{
 
             // only check if moving downward
             if (velocityY >= 0 && playerBounds.intersects(tileBounds)) {
-                int playerBottomPrev = prevY + height;
+                int playerBottomPrev = prevY + (int) height;
                 int tileTop = tile.getTop();
 
                 if (playerBottomPrev <= tileTop) {
@@ -124,15 +123,15 @@ public class Player extends Entity{
     	sprite = null;
         if (sprite != null) {
             if (facingRight) {
-                g2.drawImage(sprite, drawX, drawY, width, height, null);
+                g2.drawImage(sprite, drawX, drawY, (int) width, (int) height, null);
             } else {
                
-                g2.drawImage(sprite, drawX + width, drawY, -width, height, null);
+                g2.drawImage(sprite, (int) (drawX + width), drawY, (int) -width, (int) height, null);
             }
         } else {
             g2.setColor(Color.YELLOW);
-            System.out.println(drawX + ", " + drawY);
-            g2.fillRect(drawX, drawY, width, height);
+//            System.out.println(drawX + ", " + drawY);
+            g2.fillRect(drawX, drawY, (int) width, (int) height);
         }
     }
 
@@ -141,5 +140,15 @@ public class Player extends Entity{
 		this.x = spawnCoords[0];
 		this.y = spawnCoords[1];
 		
+	}
+
+	/**
+	 * Every thing the player should do once per frame goes in this function
+	 */
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		this.x += 1;
+		this.y += 1;
 	}
 }

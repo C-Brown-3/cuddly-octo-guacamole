@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class Entity extends Drawable {
+	double width;
+	double height;
 	double dx;
 	double dy;
 	double d2x;

@@ -20,7 +20,7 @@ import java.awt.event.*;
  * @author Evie Hipwood 
  * See CSSE220 Final Project Document to see resources used
  */
-public class GamePanel extends JPanel implements ActionListener{ //KeyListener is in Component now
+public class GamePanel extends JPanel implements ActionListener, ComponentListener{ //KeyListener is in Component now
     private Timer timer;
     private Hud hud;
     private CollectableModel collectableModel;
@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
         player = new Player(0, 0);
         enemyModel = new EnemyModel();
         levelModel = new LevelModel();
-        camera = new Camera(player, 0, 0);
+        camera = new Camera(player, 400, 400);
         gameComponent = new GameComponent(hud, collectableModel, player, enemyModel, levelModel, camera);
         
         timer = new Timer(30, e -> tick()); // 1/16 ms ~ 60 fps
@@ -62,6 +62,9 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
      */
     private void tick() {
 		// TODO Auto-generated method stub
+    	camera.setScreenWidth(getWidth());
+		camera.setScreenHeight(getHeight());
+    	
     	gameComponent.tick();
     	
     	updateDrawCoordinates();
@@ -92,6 +95,31 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		camera.setScreenWidth(getWidth());
+		camera.setScreenHeight(getHeight());
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
