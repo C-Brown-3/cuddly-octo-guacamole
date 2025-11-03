@@ -34,6 +34,9 @@ public class HUD {
 	public void incrementScore(int newScore) {
 		this.score+=newScore;
 	}
+	public void decrementLives() {
+		this.lives-=1;
+	}
 	
 	public void draw(Graphics2D g2) {
 		
