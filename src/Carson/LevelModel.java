@@ -63,16 +63,17 @@ public class LevelModel implements TopLevelClass{
 			String line;
 			int j = 0;
 			while ((line = in.readLine()) !=  null) {
+				j += 1;
 				for (int i = 0; i < line.length(); i ++) {
 					char c = line.charAt(i);
 					switch (c) {
 						case '*':		//A regular tile
-							tiles.add(new Tile(Tile.DEFAULT_SIZE * i, Tile.DEFAULT_SIZE * -j));
+							tiles.add(new Tile(Tile.DEFAULT_SIZE * i, Tile.DEFAULT_SIZE * j));
 							break;
 							
 						case '@':
 							spawnX = i*Tile.DEFAULT_SIZE;
-							spawnY = -j*Tile.DEFAULT_SIZE; 
+							spawnY = j*Tile.DEFAULT_SIZE; 
 							break;
 						
 						default:
@@ -87,5 +88,10 @@ public class LevelModel implements TopLevelClass{
 			System.out.println("Level loading failure.");
 		}
 		
+	}
+
+	public double[] getSpawnCoords() {
+		// TODO Auto-generated method stub
+		return activeLevel.getSpawnCoords();
 	}
 }

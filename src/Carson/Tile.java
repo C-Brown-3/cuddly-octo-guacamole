@@ -23,6 +23,7 @@ public class Tile extends Drawable{
 		super();
 		this.x = x;
 		this.y = y;
+		this.color = Color.black;
 	}
 	/**
 	 * Tiles is the blocks used by level to create the stage
@@ -64,7 +65,8 @@ public class Tile extends Drawable{
 	  * @param g2
 	  */
 	public void draw(Graphics2D g2) {
-		Rectangle2D.Double tile = new Rectangle2D.Double(x, y, width, height); 
+		System.out.println(this.x + ", " + this.y + "||" + this.drawX + ", " + this.drawY);
+		Rectangle2D.Double tile = new Rectangle2D.Double(this.drawX, this.drawY, width, height); 
 		g2.setColor(color); //Sets the color
         g2.fill(tile);//Fills the tile with a color to make it easier to see;
 		g2.draw(tile);//draws the tile on the screen

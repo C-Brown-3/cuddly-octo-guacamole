@@ -54,15 +54,22 @@ public class Camera extends Entity{
 	 */
 	public void move() {
 
-		if (this.x + this.screenWidth - X_SCROLL_BOUNDARY < this.entityWatched.x) {
-			//See if entity is too far to the right of the camera 
-			this.x = this.entityWatched.x - this.screenWidth + X_SCROLL_BOUNDARY;
-		} else if(this.x + X_SCROLL_BOUNDARY > this.entityWatched.x) {
-			//See if entity is too far to the left of the camera
-			this.x = this.entityWatched.x - X_SCROLL_BOUNDARY;
-		}
+//		if (this.x + this.screenWidth - X_SCROLL_BOUNDARY < this.entityWatched.x) {
+//			//See if entity is too far to the right of the camera 
+//			this.x = this.entityWatched.x - this.screenWidth + X_SCROLL_BOUNDARY;
+//		} else if(this.x + X_SCROLL_BOUNDARY > this.entityWatched.x) {
+//			//See if entity is too far to the left of the camera
+//			this.x = this.entityWatched.x - X_SCROLL_BOUNDARY;
+//		}
 		
+		this.x = 0.0;
+		this.y = 0.0;
 		
+	}
+
+	public void tick() {
+		// TODO Auto-generated method stub
+		move();
 	}
 	
 	

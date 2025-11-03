@@ -18,7 +18,6 @@ import java.util.List;
  * See CSSE220 Final Project Document for Resources Used
  */
 public class Player extends Entity{
-    private int x, y;
     private int width, height;
     private int velocityY = 0;
     private int speed = 5;
@@ -65,11 +64,11 @@ public class Player extends Entity{
      * @param tiles a list of  objects that represent platforms or ground
      */
     public void update(List<Tile> tiles) {
-        int prevY = y;
+        int prevY = drawY;
         y += velocityY;
         velocityY += gravity;
 
-        Rectangle playerBounds = new Rectangle(x, y, width, height);
+        Rectangle playerBounds = new Rectangle(drawX, drawY, width, height);
 
         // Check collisions with all tiles
         for (Tile tile : tiles) {
@@ -121,19 +120,26 @@ public class Player extends Entity{
      *
      * @param g the graphics context to draw the player
      */
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g2) {
+    	sprite = null;
         if (sprite != null) {
-            Graphics2D g2d = (Graphics2D) g;
-
             if (facingRight) {
-                g2d.drawImage(sprite, x, y, width, height, null);
+                g2.drawImage(sprite, drawX, drawY, width, height, null);
             } else {
                
-                g2d.drawImage(sprite, x + width, y, -width, height, null);
+                g2.drawImage(sprite, drawX + width, drawY, -width, height, null);
             }
         } else {
-            g.setColor(Color.BLUE);
-            g.fillRect(x, y, width, height);
+            g2.setColor(Color.RED);
+            System.out.println(drawX + ", " + drawY);
+            g2.fillRect(drawX, drawY, width, height);
         }
     }
+
+	public void setCoords(double[] spawnCoords) {
+		// TODO Auto-generated method stub
+		this.x = spawnCoords[0];
+		this.y = spawnCoords[1];
+		
+	}
 }

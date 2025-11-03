@@ -42,13 +42,13 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
 
         hud = new Hud();
         collectableModel = new CollectableModel();
-        player = new Player();
+        player = new Player(0, 0);
         enemyModel = new EnemyModel();
         levelModel = new LevelModel();
         camera = new Camera(player, 0, 0);
         gameComponent = new GameComponent(hud, collectableModel, player, enemyModel, levelModel, camera);
         
-        timer = new Timer(16, e -> tick()); // 1/16 ms ~ 60 fps
+        timer = new Timer(30, e -> tick()); // 1/16 ms ~ 60 fps
         timer.start();
 
         //addKeyListener(this);
@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
 		// TODO Auto-generated method stub
 		updateDrawCoordinates();
 		gameComponent.tick();
-		paintComponent(getGraphics());
+		this.paint(getGraphics());
 	}
 
 	private void updateDrawCoordinates() {
