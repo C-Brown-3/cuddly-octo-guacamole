@@ -35,7 +35,7 @@ public class Component extends JComponent implements KeyListener{
 			three.moveToEdge((Tile) (level.getTiles().get(3)));
 			three.update((Tile) (level.getTiles().get(3)));
 			//java.util.List.of(tile)
-			player.update(level.getTiles());
+		    player.update(level.getTiles(), getWidth());
 			if (leftPressed) player.moveLeft();
 	        if (rightPressed) player.moveRight();
 			repaint();

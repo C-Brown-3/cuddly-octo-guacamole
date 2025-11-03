@@ -1,3 +1,5 @@
+package Evie;
+
 
 
 import java.awt.*;
@@ -57,9 +59,8 @@ public class Player {
      *
      * @param tiles a list of  objects that represent platforms or ground
      */
-    public void update(List<Tile> tiles, int screenWidth) {
+    public void update(List<Tile> tiles) {
         int prevY = y;
-        int prevX = x;
         y += velocityY;
         velocityY += gravity;
 
@@ -69,35 +70,18 @@ public class Player {
         for (Tile tile : tiles) {
             Rectangle tileBounds = tile.getBounds();
 
-            if (playerBounds.intersects(tileBounds)) {
-                Rectangle intersection = playerBounds.intersection(tileBounds);
+            // only check if moving downward
+            if (velocityY >= 0 && playerBounds.intersects(tileBounds)) {
+                int playerBottomPrev = prevY + height;
+                int tileTop = tile.getTop();
 
-                // Determine smallest overlap direction
-                if (intersection.width < intersection.height) {
-                    // Horizontal collision
-                    if (prevX < tileBounds.x) {
-                        x -= intersection.width; // hit from left
-                    } else {
-                        x += intersection.width; // hit from right
-                    }
-                } else {
-                    // Vertical collision
-                    if (prevY + height <= tileBounds.y) {
-                        // Landed on top of tile
-                        y -= intersection.height;
-                        jumping = false;
-                        velocityY = 0;
-                    } else if (prevY >= tileBounds.y + tileBounds.height) {
-                        // Hit head 
-                        y += intersection.height;
-                        velocityY = 0;
-                    }
+                if (playerBottomPrev <= tileTop) {
+                    y = tileTop - height;
+                    jumping = false;
+                    velocityY = 0;
                 }
-                // Update bounds after correction
-                playerBounds = new Rectangle(x, y, width, height);
             }
         }
-        
 
         // ground collision
         if (y + height >= groundY) {
@@ -147,4 +131,8 @@ public class Player {
             g.fillRect(x, y, width, height);
         }
     }
+    
+    /**
+     *  Checks for Collisions with Collectables 
+     */
 }
