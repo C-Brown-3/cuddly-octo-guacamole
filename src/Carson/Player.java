@@ -17,7 +17,7 @@ import java.util.List;
  * @author Evie Hipwood
  * See CSSE220 Final Project Document for Resources Used
  */
-public class Player {
+public class Player extends Entity{
     private int x, y;
     private int width, height;
     private int velocityY = 0;
@@ -38,6 +38,7 @@ public class Player {
      * @param y the initial y-coordinate of the player
      */
     public Player(int x, int y) {
+    	super(0, 0);
         this.x = x;
         this.y = y;
         width = 64;
@@ -52,7 +53,12 @@ public class Player {
         }
     }
 
-    /**
+    public Player() {
+		// TODO Auto-generated constructor stub
+    	super(0,0);
+	}
+
+	/**
      * Updates the player's position, gravity, and collision detection
      * with the provided list of tiles.
      *

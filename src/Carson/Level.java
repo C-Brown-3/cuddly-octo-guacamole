@@ -3,57 +3,72 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-
+/**
+ * Class: Level
+ * @author Trevor Goad
+ * <br>Purpose: Used to create the set level design
+ */
 public class Level {
-	private Tile ground;
-	private Tile platform1;
-	private Tile platform2;
-	private Tile platform3;
+	private ArrayList<Tile> tiles;
+	private ArrayList<Enemy> enemies;
+	private double spawnX;
+	private double spawnY;
 	//private Tile stair;
-	private int levelNum=1;//int to determine what level we are on
-	
-	public Level() {
-		levelOne(); //Calls level 1
+	private int id;//int to determine what level we are on
+	/**
+	 * initializes the base level
+	 * @param spawnY2 
+	 * @param spawnX2 
+	 * @param enemies 
+	 * @param tiles2 
+	 */
+	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, double spawnX, double spawnY) {
+		this.tiles = tiles;
+		this.enemies = enemies;
+		this.spawnX = spawnX;
+		this.spawnY = spawnY;
 	}
 	
-	public Level(int levelNum) {
-		this.levelNum=levelNum;
-		if(levelNum==1){//checks the provided level number to initialize that stage
-			levelOne();
+	/**
+	 * Draws the physical aspects of the level, but not entities or other components in the level
+	 * Those are handled by their respective TopLevelClass implementations
+	 * @param g2
+	 */
+	public void draw(Graphics2D g2) {
+		// TODO Auto-generated method stub
+		if (!tiles.isEmpty()) for (Tile tile : tiles) {
+			tile.draw(g2);
 		}
 	}
-	public void levelOne() { //Creates the first level of the game
-		ground = new Tile(0,744,3200,160,Color.GREEN); //Creates the floor in which the size is a multiple of 32 for scaling with character
-		platform1 = new Tile(330,394,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
-		platform2 = new Tile(530,494,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
-		platform3 = new Tile(330,594,32*12,64,Color.DARK_GRAY);//creates a platform with scale to the character
-//		for(int k =0;k<=11;k++) { //creates a set of stairs that connects to the platform
-//			stair = new Tile(714+(32*k),394+(k*32),32*4,352-(k*32),Color.BLUE);
-//		}
-		//Scaling is based on size 32X32
-	}
-	public int spawnX() {
-		return 64*2;
-	}
-	public int spawnY() {
-		return 650;
-	}
-	public ArrayList getTiles() {
-		ArrayList<Object> tiles = new ArrayList<>();
-		tiles.add(ground);
-		tiles.add(platform1);
-		tiles.add(platform2);
-		tiles.add(platform3);
+	
+	/**
+	 * Gets the tiles from the level
+	 * @return ArrayList<Tile> filled with all tiles.
+	 */
+	public ArrayList<Tile> getTiles() {
 		return tiles;
 	}
-	public void levelDraw(Graphics2D g2) {
-		ground.draw(g2);
-		platform1.draw(g2);
-		platform2.draw(g2);
-		platform3.draw(g2);
-//		for(int k =0;k<=11;k++) { //creates a set of stairs that connects to the platform
-//			Tile stair = new Tile(714+(32*k),394+(k*32),32*4,352-(k*32),Color.BLUE);
-//			stair.draw(g2);
-//		}
+	
+	/**
+	 * This function creates a deep copy of the ArrayList containing the initial enemies of a level.
+	 * 	I do this assuming that keeping the original level data without having to reread a txt file is helpful --Carson
+	 * @return
+	 */
+	public ArrayList<Enemy> cloneEnemies() {
+		ArrayList<Enemy> clonedEnemies = new ArrayList<>();
+		for (Enemy enemy : enemies) {
+			clonedEnemies.add(new Enemy(enemy.x, enemy.y));
+		}
+		return enemies;
+	}
+	
+	public double[] getSpawnCoords() {
+		double[] coords = {spawnX, spawnY};
+		return coords;
+	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 }
