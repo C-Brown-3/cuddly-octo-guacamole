@@ -19,6 +19,7 @@ public class Component extends JComponent implements KeyListener{
 	Collectable yarn = new Collectable(500, 280, 64, 64);
 	Player player = new Player(50, 1100); 
 	Level level=new Level();
+	HUD hud = new HUD();
 	Timer timer;  
 
 	 private boolean leftPressed = false;
@@ -52,13 +53,14 @@ public class Component extends JComponent implements KeyListener{
 		
 		Graphics2D g2d = (Graphics2D) g;
 		//new Level(g2d);
-		
+		hud.draw(g2d);
 		one.draw(g2d);
 		two.draw(g2d);
 		three.draw(g2d);
 		yarn.draw(g2d);
 		player.draw(g2d); 
 		level.levelDraw(g2d);
+		
 		
 		
 	}
