@@ -113,6 +113,9 @@ public class Enemy {
             velocityY = 0;
         }
     }
+	public void checkCollision() {
+		
+	}
 	public void draw(Graphics2D g2) {
 		if (spriteLoaded)
 			//flips the sprite depending on the movement direction
