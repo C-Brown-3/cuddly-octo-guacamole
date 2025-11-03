@@ -28,10 +28,6 @@ public class LevelModel implements TopLevelClass{
 	@Override
 	public void draw(Graphics2D g2) {
 		// TODO Auto-generated method stub
-		if (activeLevel == null) {
-			System.out.println("AAAAAAAAAAA");
-			loadLevel(1);
-		}
 		activeLevel.draw(g2);
 	}
 	
@@ -43,9 +39,6 @@ public class LevelModel implements TopLevelClass{
 	}
 	
 	public ArrayList<Tile> getTiles() {
-		if (activeLevel == null) {
-			loadLevel(1);
-		}
 		return activeLevel.getTiles();
 	}
 
@@ -55,10 +48,11 @@ public class LevelModel implements TopLevelClass{
 	 * @param id
 	 */
 	public void loadLevel(int id) {
-		File levelFile = new File("level1");
+		File levelFile = new File("src/levelData/level" + id + ".txt");
 		if (!levelFile.exists()) {
+			//Replace with a void level probably
 			activeLevel = null;
-			return;
+//			return;
 		}
 		
 		try (BufferedReader in = new BufferedReader(new FileReader(levelFile))) {
@@ -79,6 +73,7 @@ public class LevelModel implements TopLevelClass{
 						case '@':
 							spawnX = i*Tile.DEFAULT_SIZE;
 							spawnY = -j*Tile.DEFAULT_SIZE; 
+							break;
 						
 						default:
 							//Character not recognized -- print to sysout, but otherwise continue
