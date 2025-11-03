@@ -12,7 +12,9 @@ import javax.imageio.ImageIO;
 /**
  * The Enemy class represents enemies in the game.
  * 
- * 
+ * The enemy is affected by gravity and interacts/collides with platform. 
+ * Enemy also moves back and forth on a platform and has a spite the flips
+ * depending on it's movement direction
  * 
  * @author Nate Nielsen
  * See CSSE220 Final Project Document for Resources Used
@@ -73,7 +75,7 @@ public class Enemy {
 		}
 		
 	}
-	
+	//moves the enemy for edge to edge on the platform
 	public void moveToEdge(Tile tile) {
         Rectangle platformBounds = tile.getBounds();
         //checks if the enemy is at the edge of a platform and switchs direction if it is
@@ -85,6 +87,7 @@ public class Enemy {
 		
 	}
 
+	//updates the enemy position based on gravity
 	public void update(Tile tile) {
         int prevY = y; // track previous position
         y += velocityY;

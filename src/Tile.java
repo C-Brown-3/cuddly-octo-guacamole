@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 /**
  * Class: Tile
- * @author Trevor Goad
+ * @author Trevor Goad 
  * <br>Purpose: Used to create tiles for the level class to use
  */
 public class Tile {
