@@ -2,9 +2,11 @@ package polishedVersion;
 
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class Player extends Entity implements TopLevelClass{
     private final int jumpPower = -20;
     private final int groundY = 744;
     private BufferedImage sprite;
+    public HashMap<String, Boolean> hash;
 
     private boolean facingRight = true;
     
@@ -35,12 +38,13 @@ public class Player extends Entity implements TopLevelClass{
      * @param x the initial x-coordinate of the player
      * @param y the initial y-coordinate of the player
      */
-    public Player(int x, int y) {
+    public Player(int x, int y, HashMap<String, Boolean> hash) {
     	super(0, 0);
         this.x = x;
         this.y = y;
         width = 64;
         height = 64;
+        this.hash = hash;
 
         try {
             sprite = ImageIO.read(getClass().getResource("src/cat.png"));
@@ -71,7 +75,7 @@ public class Player extends Entity implements TopLevelClass{
 
         // Check collisions with all tiles
         for (Tile tile : tiles) {
-            Rectangle tileBounds = tile.getBounds();
+            Rectangle2D.Double tileBounds = tile.getBounds();
 
             // only check if moving downward
             if (velocityY >= 0 && playerBounds.intersects(tileBounds)) {
@@ -102,14 +106,15 @@ public class Player extends Entity implements TopLevelClass{
             velocityY = jumpPower;
         }
     }
-    public void moveLeft() {
-        x -= speed;
-        facingRight = false; //turn left
-    }
-
-    public void moveRight() {
-        x += speed;
-        facingRight = true; //turn right
+    public void movePlayer() {
+    	if(hash.get("leftArrowPressed")) {
+            x -= 5;
+            facingRight=false; //turn right	
+    	}
+    	if(hash.get("rightArrowPressed")) {
+            x += 5;
+            facingRight = true; //turn right	
+    	}
     }
 
 
@@ -148,7 +153,8 @@ public class Player extends Entity implements TopLevelClass{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		this.x += 1;
-		this.y += 1;
+		movePlayer();
+		//System.out.println(this.x + "||" + this.y);
+
 	}
 }

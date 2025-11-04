@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         timer = new Timer(30, e -> tick()); // 1/16 ms ~ 60 fps
         timer.start();
 
-        //addKeyListener(this);
+        addKeyListener(gameComponent);
         setFocusable(true);
         requestFocusInWindow();
     }
