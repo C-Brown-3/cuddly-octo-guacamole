@@ -1,6 +1,6 @@
 package polishedVersion;
 import java.awt.event.*;
-
+import java.util.HashMap;
 /**
  * Component (hopefully to be renamed GameComponent --Carson) controls the game logic. 
  * 
@@ -10,15 +10,15 @@ import java.awt.event.*;
 
 public class GameComponent implements KeyListener{
 
-	private boolean leftPressed = false;
-	private boolean rightPressed = false;
+
 	private Hud hud;
 	private CollectableModel collectableModel;
 	private Player player;
 	private EnemyModel enemyModel;
 	private LevelModel levelModel;
 	private Camera camera;
-	 
+	private HashMap<String,Boolean> keys = new HashMap<>();
+	
 	public GameComponent(Hud hud, CollectableModel collectableModel, Player player, EnemyModel enemyModel, LevelModel levelModel, Camera camera) {
 		 this.hud = hud;
 		 this.collectableModel = collectableModel;
@@ -26,21 +26,24 @@ public class GameComponent implements KeyListener{
 		 this.enemyModel = enemyModel;
 		 this.levelModel = levelModel;
 		 this.camera = camera;
+		 this.keys.put("rightArrowPressed",false);
+		 this.keys.put("leftArrowPressed",false);		
+		 this.player.hash = this.keys;
 	}
 		
 	//keyboard controls
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) leftPressed = true;
-		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) rightPressed = true;
+		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", true);
+		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", true);
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
 	}
 
 	   
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-	    if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) leftPressed = false;
-	    if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) rightPressed = false;
+	    if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", false);
+	    if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", false);
 	}
 
 	public void keyTyped(KeyEvent e) {}

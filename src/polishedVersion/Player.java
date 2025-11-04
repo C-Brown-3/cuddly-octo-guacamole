@@ -71,7 +71,7 @@ public class Player extends Entity implements TopLevelClass{
         y += velocityY;
         velocityY += gravity;
 
-        Rectangle playerBounds = new Rectangle(drawX, drawY, (int) width, (int) height);
+        Rectangle2D.Double playerBounds = new Rectangle2D.Double(x, y, width, height);
 
         // Check collisions with all tiles
         for (Tile tile : tiles) {

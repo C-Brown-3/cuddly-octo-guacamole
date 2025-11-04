@@ -78,6 +78,9 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 		for (Tile tile: levelModel.getTiles()) {
 			camera.calculateAndSetDrawXY(tile);
 		}
+		for(Enemy enemy: enemyModel.getEnemies()) {
+			camera.calculateAndSetDrawXY(enemy);
+		}
 	}
 
 	/**
