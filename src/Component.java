@@ -17,7 +17,7 @@ public class Component extends JComponent implements KeyListener{
 	Enemy two=new Enemy(150, 450, 64, 64);
 	Enemy three=new Enemy(750, 450, 64, 64);
 	Collectable yarn = new Collectable(500, 280, 64, 64);
-	Player player = new Player(50, 1100); 
+	Player player = new Player(50, 600); 
 	Level level=new Level();
 	HUD hud = new HUD();
 	Timer timer;  
@@ -66,14 +66,14 @@ public class Component extends JComponent implements KeyListener{
 		
 		Graphics2D g2d = (Graphics2D) g;
 		//new Level(g2d);
-		hud.draw(g2d);
+		
 		one.draw(g2d);
 		two.draw(g2d);
 		three.draw(g2d);
 		yarn.draw(g2d);
 		player.draw(g2d); 
 		level.levelDraw(g2d);
-		
+		hud.draw(g2d);
 		
 		
 	}
@@ -82,7 +82,9 @@ public class Component extends JComponent implements KeyListener{
 	        int key = e.getKeyCode();
 	        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) leftPressed = true;
 	        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) rightPressed = true;
-	        if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
+	        if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) { 
+	        	player.jump();
+	        }
 	    }
 
 	   
