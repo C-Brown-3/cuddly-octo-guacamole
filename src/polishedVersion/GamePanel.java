@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 
         hud = new Hud();
         collectableModel = new CollectableModel();
-        player = new Player(0, 0);
+        player = new Player(0, 0, null);
         enemyModel = new EnemyModel();
         levelModel = new LevelModel();
         camera = new Camera(player, 400, 400);
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         timer = new Timer(30, e -> tick()); // 1/16 ms ~ 60 fps
         timer.start();
 
-        //addKeyListener(this);
+        addKeyListener(gameComponent);
         setFocusable(true);
         requestFocusInWindow();
     }
