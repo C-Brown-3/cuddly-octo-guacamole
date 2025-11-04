@@ -70,7 +70,7 @@ public class Enemy extends Entity {
 		}
 		
 	}
-	//moves the enemy for edge to edge on the platform
+	//moves the enemy for edge to edge of the platform it is on
 	public void moveToEdge(Tile tile) {
 		Rectangle Bounds = new Rectangle(x, y, width, height);
 		Rectangle tileBounds = tile.getBounds();

@@ -59,6 +59,7 @@ public class Player extends Entity {
         prevX = x;
         y += velocityY;
         velocityY += gravity;
+        
     }
     /*
     public void updateOLD(List<Tile> tiles, int screenWidth) {
