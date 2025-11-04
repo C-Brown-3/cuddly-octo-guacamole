@@ -36,7 +36,7 @@ public class Enemy extends Entity {
 		this.height=64;
 		this.width=64;
 		
-		this.speed=3;
+		this.speed=20;
 		this.velocityY=0;
 		
 		
@@ -57,7 +57,7 @@ public class Enemy extends Entity {
 		this.height=height;
 		this.width=width;
 		
-		this.speed=3;
+		this.speed=6;
 		this.velocityY=0;
 		
 		try {
@@ -72,14 +72,16 @@ public class Enemy extends Entity {
 	}
 	//moves the enemy for edge to edge on the platform
 	public void moveToEdge(Tile tile) {
-        Rectangle platformBounds = tile.getBounds();
+		Rectangle Bounds = new Rectangle(x, y, width, height);
+		Rectangle tileBounds = tile.getBounds();
+        if(Bounds.intersects(tileBounds)) {
         //checks if the enemy is at the edge of a platform and switchs direction if it is
-        if(platformBounds.getMaxX()<this.x+this.speed+this.width || platformBounds.getMinX()>this.x+this.speed) {
-        	this.speed=this.speed*(-1);
-        }else {
-        	this.x=this.x+this.speed;
+        	if(tileBounds.getMaxX()<this.x+this.speed+this.width || tileBounds.getMinX()>this.x+this.speed) {
+        		this.speed=this.speed*(-1);
+        	}else {
+        		this.x=this.x+this.speed;
+        	}
         }
-		
 	}
 
 	

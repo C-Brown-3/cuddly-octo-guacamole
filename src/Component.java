@@ -43,13 +43,15 @@ public class Component extends JComponent implements KeyListener{
 			two.gravity();
 			three.gravity();
 			for (Tile tile : level.getTiles()) {
+				one.moveToEdge(tile);
+				two.moveToEdge(tile);
+				three.moveToEdge(tile);
 				one.update(tile, 1200);
 				two.update(tile, 1200);
 				three.update(tile, 1200);
+				
 			}
-			one.moveToEdge((Tile) (level.getTiles().get(1)));
-			two.moveToEdge((Tile) (level.getTiles().get(2)));
-			three.moveToEdge((Tile) (level.getTiles().get(3)));
+			
 		    
 			if (leftPressed) player.moveLeft();
 	        if (rightPressed) player.moveRight();
