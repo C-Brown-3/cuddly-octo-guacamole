@@ -61,57 +61,8 @@ public class Player extends Entity {
         velocityY += gravity;
         
     }
-    /*
-    public void updateOLD(List<Tile> tiles, int screenWidth) {
-        int prevY = y;
-        int prevX = x;
-        y += velocityY;
-        velocityY += gravity;
-
-        Rectangle playerBounds = new Rectangle(x, y, width, height);
-
-        // Check collisions with all tiles
-        for (Tile tile : tiles) {
-            Rectangle tileBounds = tile.getBounds();
-
-            if (playerBounds.intersects(tileBounds)) {
-                Rectangle intersection = playerBounds.intersection(tileBounds);
-
-                // Determine smallest overlap direction
-                if (intersection.width < intersection.height) {
-                    // Horizontal collision
-                    if (prevX < tileBounds.x) {
-                        x -= intersection.width; // hit from left
-                    } else {
-                        x += intersection.width; // hit from right
-                    }
-                } else {
-                    // Vertical collision
-                    if (prevY + height <= tileBounds.y) {
-                        // Landed on top of tile
-                        y -= intersection.height;
-                        jumping = false;
-                        velocityY = 0;
-                    } else if (prevY >= tileBounds.y + tileBounds.height) {
-                        // Hit head 
-                        y += intersection.height;
-                        velocityY = 0;
-                    }
-                }
-                // Update bounds after correction
-                playerBounds = new Rectangle(x, y, width, height);
-            }
-        }
-        
-
-        // ground collision
-        if (y + height >= groundY) {
-            y = groundY - height;
-            jumping = false;
-            velocityY = 0;
-        }
-    }
-    */
+   
+   
     /**
      * Makes the player jump if they are currently not already jumping.
      */
@@ -130,7 +81,37 @@ public class Player extends Entity {
         x += speed;
         facingRight = true; //turn right
     }
-
+    
+    /*
+     * Collisions!!! for enemy and   c ollectable   
+     */
+    public void collide(List<Tile> tiles, List<Enemy> enemies, List<Collectable> collectables, HUD hud) {
+        //int prevX = x;
+        //int prevY = y;
+        
+        // tile collisions are happening in Entity
+        Rectangle playerBounds = new Rectangle (x ,y, width, height);
+        
+        		
+        // Enemy collisions
+        for (Enemy enemy : enemies) {
+            if (playerBounds.intersects(enemy.getBounds())) {
+                hud.decrementLives();
+            }
+        }
+        // Collectable collisions
+    	 for (int i = collectables.size() - 1; i >= 0; i--) {
+    	        Collectable item = collectables.get(i);
+    	        if (playerBounds.intersects(item.getBounds())) {
+    	            hud.incrementScore(10);
+    	            collectables.remove(i); 
+    	            System.out.println( hud.getScore());
+    	        }
+    	    }
+        }
+       
+            
+    
 
     /**
      * Draws the player sprite on the screen, flipping it horizontally if 

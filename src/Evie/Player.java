@@ -1,11 +1,11 @@
 package Evie;
 
 
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,15 +18,12 @@ import java.util.List;
  * @author Evie Hipwood
  * See CSSE220 Final Project Document for Resources Used
  */
-public class Player {
-    private int x, y;
-    private int width, height;
-    private int velocityY = 0;
-    private int speed = 5;
-    private boolean jumping = false;
+public class Player extends Entity {
+    
+   
+   
     private final int gravity = 1;
     private final int jumpPower = -20;
-    private final int groundY = 744;
     private BufferedImage sprite;
 
     private boolean facingRight = true;
@@ -39,8 +36,8 @@ public class Player {
      * @param y the initial y-coordinate of the player
      */
     public Player(int x, int y) {
-        this.x = x;
-        this.y = y;
+    	super(x,y);
+        
         width = 64;
         height = 64;
 
@@ -59,37 +56,15 @@ public class Player {
      *
      * @param tiles a list of  objects that represent platforms or ground
      */
-    public void update(List<Tile> tiles) {
-        int prevY = y;
+    public void gravity() {
+    	prevY = y;
+        prevX = x;
         y += velocityY;
         velocityY += gravity;
-
-        Rectangle playerBounds = new Rectangle(x, y, width, height);
-
-        // Check collisions with all tiles
-        for (Tile tile : tiles) {
-            Rectangle tileBounds = tile.getBounds();
-
-            // only check if moving downward
-            if (velocityY >= 0 && playerBounds.intersects(tileBounds)) {
-                int playerBottomPrev = prevY + height;
-                int tileTop = tile.getTop();
-
-                if (playerBottomPrev <= tileTop) {
-                    y = tileTop - height;
-                    jumping = false;
-                    velocityY = 0;
-                }
-            }
-        }
-
-        // ground collision
-        if (y + height >= groundY) {
-            y = groundY - height;
-            jumping = false;
-            velocityY = 0;
-        }
+        
     }
+   
+   
     /**
      * Makes the player jump if they are currently not already jumping.
      */
@@ -108,7 +83,39 @@ public class Player {
         x += speed;
         facingRight = true; //turn right
     }
-
+    
+    /*
+     * Collisions!!!
+     */
+    public void collide(List<Tile> tiles, List<Enemy> enemies, List<Collectable> collectables, HUD hud) {
+        //int prevX = x;
+        //int prevY = y;
+        
+        // tile collisions are happening in Entity
+        //Rectangle playerBounds = new Rectangle (x ,y, width, height);
+        
+        		
+        // Enemy collisions
+    	 for (Enemy enemy : enemies) {
+    	        if (this.getBounds().intersects(enemy.getBounds())) {
+    	            hud.decrementLives();
+    	            System.out.println("enemy hit");
+    	        }
+        	        }
+        // Collectable collisions
+        Iterator<Collectable> iter = collectables.iterator();
+        while (iter.hasNext()) {
+        	 Collectable item = iter.next();
+             if (this.getBounds().intersects(item.getBounds())) {
+                 hud.incrementScore(10);
+                 iter.remove();
+                 System.out.println(hud.getScore());
+             }
+        }
+        }
+       
+            
+    
 
     /**
      * Draws the player sprite on the screen, flipping it horizontally if 
@@ -131,8 +138,4 @@ public class Player {
             g.fillRect(x, y, width, height);
         }
     }
-    
-    /**
-     *  Checks for Collisions with Collectables 
-     */
 }

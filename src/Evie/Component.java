@@ -1,3 +1,4 @@
+package Evie;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import java.awt.event.*;

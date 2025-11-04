@@ -68,6 +68,7 @@ public class GameComponent implements KeyListener{
 	public void loadLevel(int id) {
 		this.levelModel.loadLevel(1);
 		player.setCoords(levelModel.getSpawnCoords());
+		enemyModel.setEnemyList(levelModel.getEnemies());
 	}
 	
 
