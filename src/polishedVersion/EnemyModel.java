@@ -38,4 +38,9 @@ public class EnemyModel {
 		}
 	}
 
+	public ArrayList<Enemy> getEnemies() {
+		// TODO Auto-generated method stub
+		return enemyList;
+	}
+
 }
