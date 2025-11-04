@@ -1,3 +1,4 @@
+package Old;
 
 
 import java.awt.Color;
@@ -23,15 +24,20 @@ import javax.imageio.ImageIO;
 
 
 
-public class Enemy extends Entity {
+public class Enemy {
+	private int x;
+	private int y;
+	private int height;
+	private int width;
 	
+	private static int gravity=3;
+	private int velocityX;
+	private int velocityY;
 	
 	private BufferedImage sprite;
 	private boolean spriteLoaded = false;
-	int velocityX=0;
 	
 	public Enemy() {
-		super(110,110);
 		this.x=110;
 		this.y=100;
 		this.height=64;
@@ -52,7 +58,6 @@ public class Enemy extends Entity {
 		
 	}
 	public Enemy(int x, int y, int height, int width) {
-		super(x,y);
 		this.x=x;
 		this.y=y;
 		this.height=height;
@@ -84,8 +89,7 @@ public class Enemy extends Entity {
 	}
 
 	//updates the enemy position based on gravity
-	/*
-	public void updateOLD(Tile tile) {
+	public void update(Tile tile) {
         int prevY = y; // track previous position
         y += velocityY;
         velocityY += gravity;
@@ -110,7 +114,6 @@ public class Enemy extends Entity {
             velocityY = 0;
         }
     }
-    */
 	public void checkCollision() {
 		
 	}

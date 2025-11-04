@@ -1,3 +1,4 @@
+package Old;
 
 
 
@@ -34,7 +35,6 @@ public class HUD {
 	public void incrementScore(int newScore) {
 		this.score+=newScore;
 	}
-	
 	public void decrementLives() {
 		this.lives-=1;
 	}

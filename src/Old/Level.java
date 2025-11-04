@@ -1,3 +1,4 @@
+package Old;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class Level {
 	 * creates an arraylist of the tiles for the other classes to use
 	 * @return arraylist of tiles
 	 */
-	public ArrayList<Tile> getTiles() {
+	public ArrayList getTiles() {
 		ArrayList<Tile> tiles = new ArrayList<>();
 		tiles.add(ground);
 		tiles.add(platform1);

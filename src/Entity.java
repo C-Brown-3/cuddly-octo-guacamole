@@ -12,14 +12,15 @@ public abstract class Entity extends Drawable {
 	double dy;
 	double d2x;
 	double d2y;
-	private int x, y;
-	private int width = 64;
-	private int height = 64;
-	private int velocityY = 0;
-	private int speed = 5;
-    private boolean jumping = false;
-    private final int gravity = 1;
-    private final int groundY = 744;
+	protected int x, y;
+	protected int prevX, prevY;
+	protected int width;
+	protected int height;
+	protected int velocityY = 0;
+	protected int speed = 5;
+    protected boolean jumping = false;
+    protected final int gravity = 1;
+    protected final int groundY = 744;
     
 	public Entity(int x, int y) {
 		super();
@@ -56,10 +57,8 @@ public abstract class Entity extends Drawable {
      *
      * @param tiles a list of  objects that represent platforms or ground
      */
-    public void update(List<Tile> tiles, int screenWidth) {
-        int prevY = y;
-        int prevX = x;
-        y += velocityY;
+    public void update(Tile tile, int screenWidth) {
+    	Rectangle tileBounds = tile.getBounds();
         
         // updating entity 
         Rectangle Bounds = new Rectangle(x, y, width, height);
@@ -71,7 +70,7 @@ public abstract class Entity extends Drawable {
                 // Determine smallest overlap direction
                 if (intersection.width < intersection.height) {
                     // Horizontal collision
-                    if (prevX < tile    Bounds.x) {
+                    if (prevX < tileBounds.x) {
                         x -= intersection.width; // hit from left
                     } else {
                         x += intersection.width; // hit from right

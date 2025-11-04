@@ -1,3 +1,4 @@
+package Old;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import java.awt.event.*;
@@ -30,19 +31,13 @@ public class Component extends JComponent implements KeyListener{
 	     addKeyListener(this);
 		timer = new Timer(30, e -> {
 			one.moveToEdge((Tile) (level.getTiles().get(1)));
-			one.update((Tile) (level.getTiles().get(1)),1200);
+			one.update((Tile) (level.getTiles().get(1)));
 			two.moveToEdge((Tile) (level.getTiles().get(2)));
-			two.update((Tile) (level.getTiles().get(2)),1200);
+			two.update((Tile) (level.getTiles().get(2)));
 			three.moveToEdge((Tile) (level.getTiles().get(3)));
-			three.update((Tile) (level.getTiles().get(3)),1200);
-			
-			// tiles for entity
-			player.gravity();
-			for (Tile tile : level.getTiles()) {
-		            player.update(tile,1200);
-			  }
-		    
-		    
+			three.update((Tile) (level.getTiles().get(3)));
+			//java.util.List.of(tile)
+		    player.update(level.getTiles(), getWidth());
 			if (leftPressed) player.moveLeft();
 	        if (rightPressed) player.moveRight();
 			repaint();

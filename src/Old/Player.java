@@ -1,3 +1,4 @@
+package Old;
 
 
 import java.awt.*;
@@ -16,12 +17,15 @@ import java.util.List;
  * @author Evie Hipwood
  * See CSSE220 Final Project Document for Resources Used
  */
-public class Player extends Entity {
-    
-   
-   
+public class Player {
+    private int x, y;
+    private int width, height;
+    private int velocityY = 0;
+    private int speed = 5;
+    private boolean jumping = false;
     private final int gravity = 1;
     private final int jumpPower = -20;
+    private final int groundY = 744;
     private BufferedImage sprite;
 
     private boolean facingRight = true;
@@ -34,8 +38,8 @@ public class Player extends Entity {
      * @param y the initial y-coordinate of the player
      */
     public Player(int x, int y) {
-    	super(x,y);
-        
+        this.x = x;
+        this.y = y;
         width = 64;
         height = 64;
 
@@ -54,14 +58,7 @@ public class Player extends Entity {
      *
      * @param tiles a list of  objects that represent platforms or ground
      */
-    public void gravity() {
-    	prevY = y;
-        prevX = x;
-        y += velocityY;
-        velocityY += gravity;
-    }
-    /*
-    public void updateOLD(List<Tile> tiles, int screenWidth) {
+    public void update(List<Tile> tiles, int screenWidth) {
         int prevY = y;
         int prevX = x;
         y += velocityY;
@@ -110,7 +107,6 @@ public class Player extends Entity {
             velocityY = 0;
         }
     }
-    */
     /**
      * Makes the player jump if they are currently not already jumping.
      */
