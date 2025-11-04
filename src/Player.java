@@ -83,7 +83,7 @@ public class Player extends Entity {
     }
     
     /*
-     * Collisions!!!
+     * Collisions!!! for enemy and collectable
      */
     public void collide(List<Tile> tiles, List<Enemy> enemies, List<Collectable> collectables, HUD hud) {
         //int prevX = x;
