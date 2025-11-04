@@ -2,6 +2,7 @@ package polishedVersion;
 
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class Player extends Entity implements TopLevelClass{
 
         // Check collisions with all tiles
         for (Tile tile : tiles) {
-            Rectangle tileBounds = tile.getBounds();
+            Rectangle2D.Double tileBounds = tile.getBounds();
 
             // only check if moving downward
             if (velocityY >= 0 && playerBounds.intersects(tileBounds)) {
