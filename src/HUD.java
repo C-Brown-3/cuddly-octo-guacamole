@@ -86,6 +86,7 @@ public class HUD {
     		g2.drawString("Score: "+this.score, 300, 30);
     		g2.drawString("Level: "+this.level, 500, 30);
 		}
+		
 	}
         
 }
