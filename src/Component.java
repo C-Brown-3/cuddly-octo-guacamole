@@ -29,19 +29,27 @@ public class Component extends JComponent implements KeyListener{
 		 setFocusable(true);
 	     addKeyListener(this);
 		timer = new Timer(30, e -> {
-			one.moveToEdge((Tile) (level.getTiles().get(1)));
-			one.update((Tile) (level.getTiles().get(1)),1200);
-			two.moveToEdge((Tile) (level.getTiles().get(2)));
-			two.update((Tile) (level.getTiles().get(2)),1200);
-			three.moveToEdge((Tile) (level.getTiles().get(3)));
-			three.update((Tile) (level.getTiles().get(3)),1200);
+			
+			
+			
+			
 			
 			// tiles for entity
 			player.gravity();
 			for (Tile tile : level.getTiles()) {
 		            player.update(tile,1200);
 			  }
-		    
+			one.gravity();
+			two.gravity();
+			three.gravity();
+			for (Tile tile : level.getTiles()) {
+				one.update(tile, 1200);
+				two.update(tile, 1200);
+				three.update(tile, 1200);
+			}
+			one.moveToEdge((Tile) (level.getTiles().get(1)));
+			two.moveToEdge((Tile) (level.getTiles().get(2)));
+			three.moveToEdge((Tile) (level.getTiles().get(3)));
 		    
 			if (leftPressed) player.moveLeft();
 	        if (rightPressed) player.moveRight();
