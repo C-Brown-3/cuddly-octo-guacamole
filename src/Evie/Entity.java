@@ -1,4 +1,4 @@
-package Nate;
+package Evie;
 
 
 import java.awt.Rectangle;
@@ -21,7 +21,7 @@ public abstract class Entity extends Drawable {
 	protected int speed = 5;
     protected boolean jumping = false;
     protected final int gravity = 1;
-    protected final int groundY = 1200;
+    protected final int groundY = 744;
     
 	public Entity(int x, int y) {
 		super();
@@ -52,7 +52,6 @@ public abstract class Entity extends Drawable {
 			return null;
 		}
 	}
-	
 	 /**
      * Updates the player's position, gravity, and collision detection
      * with the provided list of tiles.
@@ -61,13 +60,13 @@ public abstract class Entity extends Drawable {
      */
     public void update(Tile tile, int screenWidth) {
     	Rectangle tileBounds = tile.getBounds();
-        
+    	  Rectangle bounds = getBounds();
         // updating entity 
-        Rectangle Bounds = new Rectangle(x, y, width, height);
+        //Rectangle Bounds = new Rectangle(x, y, width, height);
 
         // Check collisions with tile
-            if (Bounds.intersects(tileBounds)) {
-                Rectangle intersection = Bounds.intersection(tileBounds);
+            if (bounds.intersects(tileBounds)) {
+                Rectangle intersection = bounds.intersection(tileBounds);
 
                 // Determine smallest overlap direction
                 if (intersection.width < intersection.height) {
@@ -91,9 +90,9 @@ public abstract class Entity extends Drawable {
                     }
                 }
                 // Update bounds after correction
-               Bounds = new Rectangle(x, y, width, height);
+                bounds = getBounds();
             
-        }
+        } 
         
 
         // ground collision
@@ -102,5 +101,8 @@ public abstract class Entity extends Drawable {
             jumping = false;
             velocityY = 0;
         }
+    }
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
     }
 }

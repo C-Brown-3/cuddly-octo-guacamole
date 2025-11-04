@@ -1,4 +1,4 @@
-package Nate;
+package Evie;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import java.awt.event.*;
@@ -18,7 +18,7 @@ public class Component extends JComponent implements KeyListener{
 	Enemy two=new Enemy(150, 450, 64, 64);
 	Enemy three=new Enemy(750, 450, 64, 64);
 	Collectable yarn = new Collectable(500, 280, 64, 64);
-	Player player = new Player(50, 600); 
+	Player player = new Player(50, 1100); 
 	Level level=new Level();
 	HUD hud = new HUD();
 	Timer timer;  
@@ -83,9 +83,7 @@ public class Component extends JComponent implements KeyListener{
 	        int key = e.getKeyCode();
 	        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) leftPressed = true;
 	        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) rightPressed = true;
-	        if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) { 
-	        	player.jump();
-	        }
+	        if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
 	    }
 
 	   

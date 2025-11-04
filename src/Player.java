@@ -61,8 +61,7 @@ public class Player extends Entity {
         velocityY += gravity;
         
     }
-    
-    
+
     /**
      * Makes the player jump if they are currently not already jumping.
      */
@@ -81,7 +80,37 @@ public class Player extends Entity {
         x += speed;
         facingRight = true; //turn right
     }
-
+    
+    /*
+     * Collisions!!! for enemy and   c ollectable   
+     */
+    public void collide(List<Tile> tiles, List<Enemy> enemies, List<Collectable> collectables, HUD hud) {
+        //int prevX = x;
+        //int prevY = y;
+        
+        // tile collisions are happening in Entity
+        Rectangle playerBounds = new Rectangle (x ,y, width, height);
+        
+        		
+        // Enemy collisions
+        for (Enemy enemy : enemies) {
+            if (playerBounds.intersects(enemy.getBounds())) {
+                hud.decrementLives();
+            }
+        }
+        // Collectable collisions
+    	 for (int i = collectables.size() - 1; i >= 0; i--) {
+    	        Collectable item = collectables.get(i);
+    	        if (playerBounds.intersects(item.getBounds())) {
+    	            hud.incrementScore(10);
+    	            collectables.remove(i); 
+    	            System.out.println( hud.getScore());
+    	        }
+    	    }
+        }
+       
+            
+    
 
     /**
      * Draws the player sprite on the screen, flipping it horizontally if 

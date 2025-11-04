@@ -1,4 +1,4 @@
-package Nate;
+package Evie;
 
 
 import java.awt.Color;
@@ -86,6 +86,9 @@ public class Enemy extends Entity {
 	}
 
 	
+	public void checkCollision() {
+		
+	}
 	public void gravity() {
     	prevY = y;
         prevX = x;

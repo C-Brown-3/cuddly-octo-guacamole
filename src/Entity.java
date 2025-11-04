@@ -60,13 +60,13 @@ public abstract class Entity extends Drawable {
      */
     public void update(Tile tile, int screenWidth) {
     	Rectangle tileBounds = tile.getBounds();
-        
+    	  Rectangle bounds = getBounds();
         // updating entity 
-        Rectangle Bounds = new Rectangle(x, y, width, height);
+        //Rectangle Bounds = new Rectangle(x, y, width, height);
 
         // Check collisions with tile
-            if (Bounds.intersects(tileBounds)) {
-                Rectangle intersection = Bounds.intersection(tileBounds);
+            if (bounds.intersects(tileBounds)) {
+                Rectangle intersection = bounds.intersection(tileBounds);
 
                 // Determine smallest overlap direction
                 if (intersection.width < intersection.height) {
@@ -90,9 +90,9 @@ public abstract class Entity extends Drawable {
                     }
                 }
                 // Update bounds after correction
-               Bounds = new Rectangle(x, y, width, height);
+                bounds = getBounds();
             
-        }
+        } 
         
 
         // ground collision
@@ -101,5 +101,8 @@ public abstract class Entity extends Drawable {
             jumping = false;
             velocityY = 0;
         }
+    }
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
     }
 }

@@ -1,4 +1,4 @@
-package Nate;
+package Evie;
 
 
 import javax.swing.*;
@@ -57,7 +57,8 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
         //if (leftPressed) player.moveLeft();
         //if (rightPressed) player.moveRight();
        // player.update(level); 
-        repaint();
+        
+    	repaint();
     }
 
     /**

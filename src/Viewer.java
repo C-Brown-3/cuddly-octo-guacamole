@@ -18,6 +18,7 @@ public class Viewer{
 		frame.add(comp);
 		comp.start();
 		
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}

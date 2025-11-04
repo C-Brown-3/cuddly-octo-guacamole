@@ -1,4 +1,4 @@
-package Nate;
+package Evie;
 
 
 import java.awt.Color;
@@ -22,11 +22,8 @@ import javax.imageio.ImageIO;
 
 
 
-public class Collectable {
-	private int x;
-	private int y;
-	private int height;
-	private int width;
+public class Collectable extends Entity {
+	
 	
 	
 	
@@ -34,8 +31,7 @@ public class Collectable {
 	private boolean spriteLoaded = false;
 	
 	public Collectable() {
-		this.x=200;
-		this.y=200;
+		super(200,200);
 		this.height=64;
 		this.width=64;
 		
@@ -52,8 +48,7 @@ public class Collectable {
 		
 	}
 	public Collectable(int x, int y, int height, int width) {
-		this.x=x;
-		this.y=y;
+		super (x,y);
 		this.height=height;
 		this.width=width;
 		
