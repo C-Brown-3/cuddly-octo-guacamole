@@ -2,6 +2,7 @@ package Evie;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import java.awt.event.*;
+import java.util.Arrays;
 import java.awt.*;
 
 
@@ -25,6 +26,7 @@ public class Component extends JComponent implements KeyListener{
 
 	 private boolean leftPressed = false;
 	 private boolean rightPressed = false;
+	 private boolean downPressed = false;
 	 
 	public Component() {
 		 setFocusable(true);
@@ -53,6 +55,13 @@ public class Component extends JComponent implements KeyListener{
 		    
 			if (leftPressed) player.moveLeft();
 	        if (rightPressed) player.moveRight();
+	        
+	        player.collide(
+	                level.getTiles(),
+	                java.util.Arrays.asList(one, two, three), // enemies
+	                new java.util.ArrayList<>(Arrays.asList(yarn)),        // collectables
+	                downPressed, hud
+	            );
 			repaint();
 	      });
 	}
@@ -81,6 +90,7 @@ public class Component extends JComponent implements KeyListener{
 	//keyboard controls
 	 public void keyPressed(KeyEvent e) {
 	        int key = e.getKeyCode();
+	        if (key == KeyEvent.VK_DOWN) downPressed = true;
 	        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) leftPressed = true;
 	        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) rightPressed = true;
 	        if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
@@ -89,6 +99,7 @@ public class Component extends JComponent implements KeyListener{
 	   
 	    public void keyReleased(KeyEvent e) {
 	        int key = e.getKeyCode();
+	        if (key == KeyEvent.VK_DOWN) downPressed = false;
 	        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) leftPressed = false;
 	        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) rightPressed = false;
 	    }

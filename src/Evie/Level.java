@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+
 /**
  * Class: Level
  * @author Trevor Goad
@@ -13,6 +14,7 @@ public class Level {
 	private Tile platform1;
 	private Tile platform2;
 	private Tile platform3;
+
 	//private Tile stair;
 	private int levelNum=1;//int to determine what level we are on
 	/**

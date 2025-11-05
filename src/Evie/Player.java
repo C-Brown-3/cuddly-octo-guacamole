@@ -28,6 +28,11 @@ public class Player extends Entity {
 
     private boolean facingRight = true;
     
+    private long lastHitTime = 0;
+    private long invulnerabilityDuration = 2000; // 2 seconds grace period after each enemy hit 
+    private boolean isInvulnerable = false;
+    private HUD hud;
+    
     
     /**
      * Constructs a new Player at the specified starting coordinates.
@@ -36,6 +41,8 @@ public class Player extends Entity {
      * @param y the initial y-coordinate of the player
      */
     public Player(int x, int y) {
+    	
+    	
     	super(x,y);
         
         width = 64;
@@ -87,31 +94,47 @@ public class Player extends Entity {
     /*
      * Collisions!!!
      */
-    public void collide(List<Tile> tiles, List<Enemy> enemies, List<Collectable> collectables, HUD hud) {
+    public void collide(List<Tile> tiles, List<Enemy> enemies, List<Collectable> collectables,boolean downPressed, HUD hud) {
         //int prevX = x;
         //int prevY = y;
         
         // tile collisions are happening in Entity
         //Rectangle playerBounds = new Rectangle (x ,y, width, height);
-        
+    	  Rectangle playerBounds = getBounds();
+          long currentTime = System.currentTimeMillis();
         		
-        // Enemy collisions
-    	 for (Enemy enemy : enemies) {
-    	        if (this.getBounds().intersects(enemy.getBounds())) {
-    	            hud.decrementLives();
-    	            System.out.println("enemy hit");
-    	        }
-        	        }
-        // Collectable collisions
+        // Enemy collisions- each enemy hit looses player a life, you have a 2 second grace period before you can be hit again
+          for (Enemy enemy : enemies) {
+              if (playerBounds.intersects(enemy.getBounds())) {
+                  if (currentTime - lastHitTime > invulnerabilityDuration) {
+                      hud.decrementLives();
+                      lastHitTime = currentTime;
+                      isInvulnerable = true;
+
+                      
+
+                      System.out.println("Player hit by enemy.");
+                  }
+              
+          }
+          }
+        // Collectable collisions- Each yarn piece is only worth 10 points, cannot keep standing on yarn for more points
         Iterator<Collectable> iter = collectables.iterator();
         while (iter.hasNext()) {
         	 Collectable item = iter.next();
-             if (this.getBounds().intersects(item.getBounds())) {
-                 hud.incrementScore(10);
+        	 if (!item.isCollected() && playerBounds.intersects(item.getBounds()) && downPressed) {
+                 if (hud != null) 
+                hud.incrementScore(10);
+                 item.setCollected(true);
                  iter.remove();
-                 System.out.println(hud.getScore());
+                 System.out.println("Collected yarn!");
              }
-        }
+         }
+
+         if (currentTime - lastHitTime > invulnerabilityDuration) {
+             isInvulnerable = false;
+         }
+            	
         }
        
             

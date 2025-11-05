@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
     private Timer timer;
     private Player player;
     private Level level;
+ 
     //private boolean leftPressed, rightPressed;
 
     
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
 
         
         level = new Level(1);
-        
+        player = new Player(level.spawnX(), level.spawnY());
         timer = new Timer(16, this);
         timer.start();
 
@@ -57,7 +58,7 @@ public class GamePanel extends JPanel implements ActionListener{ //KeyListener i
         //if (leftPressed) player.moveLeft();
         //if (rightPressed) player.moveRight();
        // player.update(level); 
-        
+    	 
     	repaint();
     }
 

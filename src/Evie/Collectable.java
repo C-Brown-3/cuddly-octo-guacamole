@@ -29,7 +29,9 @@ public class Collectable extends Entity {
 	
 	private BufferedImage sprite;
 	private boolean spriteLoaded = false;
-	
+	  private boolean collected = false; // for collision logic
+
+	  
 	public Collectable() {
 		super(200,200);
 		this.height=64;
@@ -63,8 +65,19 @@ public class Collectable extends Entity {
 		
 	}
 	
+	// Stops Yarn from not going away after being collected. Keeps track of yarn
+	 public boolean isCollected() {
+	        return collected;
+	    }
+
+	    public void setCollected(boolean collected) {
+	        this.collected = collected;
+	    }
+	
 	
 	public void draw(Graphics2D g2) {
+        if (collected) return;
+        
 		if (spriteLoaded)	
 			g2.drawImage(sprite, x, y, width, height, null);
         else {
