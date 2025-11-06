@@ -38,7 +38,6 @@ public class GameComponent implements KeyListener{
 		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", true);
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) {
 			player.jump();
-			hud.decrementLives();
 		}
 		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
 	}

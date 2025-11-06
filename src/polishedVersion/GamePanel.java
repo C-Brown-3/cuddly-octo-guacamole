@@ -95,6 +95,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         player.draw(g2);
         levelModel.draw(g2);
         enemyModel.draw(g2);
+        hud.draw(g2);
     }
 
 	@Override

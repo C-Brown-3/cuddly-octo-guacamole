@@ -37,6 +37,7 @@ public class GameComponent implements KeyListener{
 		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", true);
 		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", true);
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
+		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
 	}
 
 	   
@@ -66,6 +67,7 @@ public class GameComponent implements KeyListener{
 		this.levelModel.loadLevel(1);
 		player.setCoords(levelModel.getSpawnCoords());
 		enemyModel.setEnemyList(levelModel.getEnemies());
+		hud.reset(id);
 	}
 	
 
