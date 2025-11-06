@@ -53,7 +53,7 @@ public class Player extends Entity implements TopLevelClass {
      * @param tiles a list of  objects that represent platforms or ground
      */
     public void update(List<Tile> tiles) {
-        int prevY = drawY;
+        double prevY = drawY;
         y += dy;
         dy += gravity;
 
@@ -65,7 +65,7 @@ public class Player extends Entity implements TopLevelClass {
 
             // only check if moving downward
             if (dy >= 0 && playerBounds.intersects(tileBounds)) {
-                int playerBottomPrev = prevY + (int) height;
+                int playerBottomPrev = (int) prevY + (int) height;
                 int tileTop = tile.getTop();
 
                 if (playerBottomPrev <= tileTop) {
@@ -133,19 +133,20 @@ public class Player extends Entity implements TopLevelClass {
      * @param g the graphics context to draw the player
      */
     public void draw(Graphics2D g2) {
-  
+    	g2.translate(drawX, drawY);
         if (sprite != null) {
             if (facingRight) {
-                g2.drawImage(sprite, drawX, drawY, (int) width, (int) height, null);
+                g2.drawImage(sprite, 0, 0, (int) width, (int) height, null);
             } else {
                
-                g2.drawImage(sprite, (int) (drawX + width), drawY, (int) -width, (int) height, null);
+                g2.drawImage(sprite, (int) width, 0, (int) -width, (int) height, null);
             }
         } else {
             g2.setColor(Color.YELLOW);
 //            System.out.println(drawX + ", " + drawY);
-            g2.fillRect(drawX, drawY, (int) width, (int) height);
+            g2.fillRect(0, 0, (int) width, (int) height);
         }
+        g2.translate(-drawX, -drawY);
     }
 
 	public void setCoords(double[] spawnCoords) {

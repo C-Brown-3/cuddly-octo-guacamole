@@ -8,7 +8,6 @@ public class Camera extends Entity{
 	 * It is assumed that the level coordinates exist with (0,0) representing the top left coordinate of the level. 
 	 */
 	private Entity entityWatched;
-	private Level level;
 	private int screenWidth;
 	private int screenHeight;
 	private static final double X_SCROLL_BOUNDARY = 0.0;
@@ -37,10 +36,6 @@ public class Camera extends Entity{
 
 	public void setScreenWidth(int screenWidth) {
 		this.screenWidth = screenWidth;
-	}
-
-	public void setLevel(Level level) {
-		this.level = level;
 	}
 	
 	public void calculateAndSetDrawXY(Drawable drawable) {
