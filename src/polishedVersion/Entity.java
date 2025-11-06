@@ -104,11 +104,9 @@ public abstract class Entity extends Drawable {
                     }
                 }
                 // Update bounds after correction
-               //Bounds = new Rectangle(x, y, width, height);
-            
+               //Bounds = new Rectangle(x, y, width, height);    
             }
     	}
-
         // ground collision
 //        if (y + height >= groundY) {
 //            y = groundY - height;
@@ -116,4 +114,15 @@ public abstract class Entity extends Drawable {
 //            dy = 0;
 //        }
     }
+    
+    /**
+     * This function is here with the goal of letting an entity test if it would collide with a tile,
+     * and provides the option of having the tested collision change the position of the entity.
+     * @param offsetX
+     * @param offsetY
+     */
+    private boolean[] testCollisionWithOffset(int offsetX, int offsetY, boolean affectPosition) {
+    	
+		return null;
+	}
 }
