@@ -40,15 +40,15 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         setPreferredSize(new Dimension(800, 600));
         setBackground(Color.WHITE);
 
+        levelModel = new LevelModel();
         hud = new Hud();
         collectableModel = new CollectableModel();
-        player = new Player(0, 0, null);
-        enemyModel = new EnemyModel();
-        levelModel = new LevelModel();
+        player = new Player(0, 0, levelModel, null);
+        enemyModel = new EnemyModel(levelModel);
         camera = new Camera(player, 400, 400);
         gameComponent = new GameComponent(hud, collectableModel, player, enemyModel, levelModel, camera);
         
-        timer = new Timer(30, e -> tick()); // 1/16 ms ~ 60 fps
+        timer = new Timer(16, e -> tick()); // 1/16 ms ~ 60 fps
         timer.start();
 
         addKeyListener(gameComponent);

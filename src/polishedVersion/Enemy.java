@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
  */
 
 public class Enemy extends Entity{
-	private final static String resourcePath = "resources/vacuum.png";
+	private final static String resourcePath = "/src/resources/vacuum.png";
 	private final static double enemySpeed = 3.0;
 	private int height;
 	private int width;
@@ -31,7 +31,7 @@ public class Enemy extends Entity{
 	private boolean spriteLoaded = false;
 	
 	public Enemy(double x, double y) {
-		super(x, y);
+		super(x, y, null);
 		this.height = 64;
 		this.width = 64;
 		this.dx = enemySpeed; 

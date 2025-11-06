@@ -15,13 +15,7 @@ public class Level {
 	private double spawnY;
 	//private Tile stair;
 	private int id;//int to determine what level we are on
-	/**
-	 * initializes the base level
-	 * @param spawnY2 
-	 * @param spawnX2 
-	 * @param enemies 
-	 * @param tiles2 
-	 */
+
 	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, double spawnX, double spawnY) {
 		this.tiles = tiles;
 		this.enemies = enemies;
@@ -71,4 +65,5 @@ public class Level {
 		// TODO Auto-generated method stub
 		return id;
 	}
+	
 }

@@ -8,9 +8,11 @@ import java.util.ArrayList;
  */
 public class EnemyModel {
 	private ArrayList<Enemy> enemyList;
+	private LevelModel levelModel;
 	
-	public EnemyModel() {
+	public EnemyModel(LevelModel levelModel) {
 		// Possibly nothing to do for the initial enemy list.
+		this.levelModel = levelModel;
 	}
 	
 	/**
@@ -20,6 +22,9 @@ public class EnemyModel {
 	 */
 	public void setEnemyList(ArrayList<Enemy> newList) {
 		enemyList = newList;
+		if (!enemyList.isEmpty()) for (Enemy enemy: enemyList) {
+			enemy.setLevelModel(levelModel);
+		}
 	}
 	
 	/**
@@ -33,6 +38,9 @@ public class EnemyModel {
 	}
 	
 	public void draw(Graphics2D g2) {
+		if (enemyList == null) {
+			return;
+		}
 		if (!enemyList.isEmpty()) for (Enemy enemy: enemyList) {
 			enemy.draw(g2);
 		}

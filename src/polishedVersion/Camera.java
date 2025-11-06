@@ -16,7 +16,7 @@ public class Camera extends Entity{
 	private static final double Y_LOWER_SCROLL_BOUNDARY = 0.0;
 	
 	public Camera (Entity entityWatched, int screenWidth, int screenHeight) {
-		super(0, 0);
+		super(0, 0, null);
 		this.entityWatched = entityWatched;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
@@ -31,7 +31,7 @@ public class Camera extends Entity{
 	}
 
 	public void setScreenHeight(int screenHeight) {
-		System.out.println("Height");
+//		System.out.println("Height");
 		this.screenHeight = screenHeight;
 	}
 
@@ -54,7 +54,7 @@ public class Camera extends Entity{
 	 * Make the camera follow the watched entity, allowing for some wiggle room in which the camera will not scroll
 	 */
 	public void move() {
-		System.out.println(screenWidth + " | " + screenHeight);
+//		System.out.println(screenWidth + " | " + screenHeight);
 		this.x = entityWatched.x + entityWatched.width/2 - screenWidth/2;
 		this.y = entityWatched.y + entityWatched.height/2 - screenHeight/2;
 	}

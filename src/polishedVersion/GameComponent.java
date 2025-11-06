@@ -55,16 +55,17 @@ public class GameComponent implements KeyListener{
 	public void tick() {
 		// TODO Auto-generated method stub
 		if (levelModel.getLevelID() == -1) {
-			System.out.println("Hell on earth is here.");
 			loadLevel(1);
 		}
-		camera.tick();
+		
 		player.tick();
+		camera.tick();
 	}
 	
 	public void loadLevel(int id) {
 		this.levelModel.loadLevel(1);
 		player.setCoords(levelModel.getSpawnCoords());
+		enemyModel.setEnemyList(levelModel.getEnemies());
 	}
 	
 

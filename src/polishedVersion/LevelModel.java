@@ -61,6 +61,7 @@ public class LevelModel implements TopLevelClass{
 			//Think of i and j as x and y
 			ArrayList<Tile> tiles = new ArrayList<>();
 			ArrayList<Enemy> enemies = new ArrayList<>();
+			ArrayList<Collectable> item = new ArrayList<>();
 			double spawnX = 0, spawnY = 0;
 			String line;
 			int j = -1;
@@ -95,5 +96,10 @@ public class LevelModel implements TopLevelClass{
 	public double[] getSpawnCoords() {
 		// TODO Auto-generated method stub
 		return activeLevel.getSpawnCoords();
+	}
+
+	public ArrayList<Enemy> getEnemies() {
+		// TODO Auto-generated method stub
+		return activeLevel.cloneEnemies();
 	}
 }

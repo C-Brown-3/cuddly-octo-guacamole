@@ -16,8 +16,10 @@ public abstract class Entity extends Drawable {
 	protected double prevX, prevY;
     protected boolean jumping = false;
     protected final double gravity = 1;
+    protected double minDX = 0.2;
+    private LevelModel levelModel;
     
-	public Entity(double x, double y) {
+	public Entity(double x, double y, LevelModel levelModel) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -25,13 +27,27 @@ public abstract class Entity extends Drawable {
 		dy = 0;
 		d2x = 0;
 		d2y = 0;
+		this.levelModel = levelModel;
+	}
+	
+	/**
+	 * Provides Horizontal Friction to slow down the entity by the friction value
+	 * Entities which have constant velocities should probably have 0 for friction coefficients
+	 */
+	private void applyFriction() {
+		if (Math.abs(dx) < minDX) {
+			dx = 0;
+		}
 	}
 	
 	public void move() {
 		x += dx;
 		dx += d2x;
 		y += dy;
-		dy += d2y;
+		dy += d2y + gravity;
+		
+		applyFriction();
+		updateCollision();
 	}
 	
 	protected BufferedImage bufferImage(String filePath) {
@@ -44,13 +60,19 @@ public abstract class Entity extends Drawable {
 			return null;
 		}
 	}
+	
+	public void setLevelModel(LevelModel levelModel) {
+		this.levelModel = levelModel;
+	}
 	 /**
      * Updates the player's position, gravity, and collision detection
      * with the provided list of tiles.
      *
      * @param tiles a list of  objects that represent platforms or ground
      */
-    public void update(Tile tile, int screenWidth) {
+    private void updateCollision() {
+    	
+    	for (Tile tile : this.levelModel.getTiles()) {
     	Rectangle2D.Double tileBounds = tile.getBounds();
         
         // updating entity 
@@ -84,8 +106,8 @@ public abstract class Entity extends Drawable {
                 // Update bounds after correction
                //Bounds = new Rectangle(x, y, width, height);
             
-        }
-        
+            }
+    	}
 
         // ground collision
 //        if (y + height >= groundY) {
