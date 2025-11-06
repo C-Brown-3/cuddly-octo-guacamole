@@ -10,6 +10,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import Nate.Hud;
+
 /**
  * The Enemy class represents enemies in the game.
  * 
@@ -20,7 +22,7 @@ import javax.imageio.ImageIO;
  */
 
 public class Enemy extends Entity{
-	private final static String resourcePath = "/src/resources/vacuum.png";
+	
 	private final static double enemySpeed = 3.0;
 	private int height;
 	private int width;
@@ -36,7 +38,16 @@ public class Enemy extends Entity{
 		this.width = 64;
 		this.dx = enemySpeed; 
 		
-		sprite = this.bufferImage(resourcePath);
+		
+		try {
+			sprite=ImageIO.read(Enemy.class.getResource("vacuum.png"));
+			spriteLoaded=true;
+		} catch (IOException e) {
+			
+			spriteLoaded = false;
+		} catch (IllegalArgumentException e) {
+			spriteLoaded = false;
+		}
 	}
 
 	public void draw(Graphics2D g2) {

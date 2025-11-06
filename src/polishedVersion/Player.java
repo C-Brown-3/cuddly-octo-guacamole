@@ -20,13 +20,14 @@ import java.util.List;
  * See CSSE220 Final Project Document for Resources Used
  */
 public class Player extends Entity implements TopLevelClass {
-	private static final String IMAGE_PATH = "cat.png";
+	
     private final int gravity = 1;
     private final int jumpPower = -20;
     private BufferedImage sprite;
     public HashMap<String, Boolean> hash;
 
     private boolean facingRight = true;
+    private boolean spriteLoaded=false;
     
     
     /**
@@ -43,7 +44,16 @@ public class Player extends Entity implements TopLevelClass {
         height = 64;
         this.hash = hash;
 
-        sprite = bufferImage(IMAGE_PATH);
+        
+        try {
+			sprite=ImageIO.read(Player.class.getResource("cat.png"));
+			spriteLoaded=true;
+		} catch (IOException e) {
+			
+			spriteLoaded = false;
+		} catch (IllegalArgumentException e) {
+			spriteLoaded = false;
+		}
     }
 
     /**
@@ -134,7 +144,7 @@ public class Player extends Entity implements TopLevelClass {
      */
     public void draw(Graphics2D g2) {
     	g2.translate(drawX, drawY);
-        if (sprite != null) {
+        if (spriteLoaded) {
             if (facingRight) {
                 g2.drawImage(sprite, 0, 0, (int) width, (int) height, null);
             } else {
