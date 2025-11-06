@@ -40,9 +40,10 @@ public class Enemy extends Entity{
 	}
 
 	public void draw(Graphics2D g2) {
+		g2.translate(drawX, drawY);
 		if (spriteLoaded) {
 			//flips the sprite depending on the movement direction
-			g2.translate(drawX, drawY);
+			
 			if(this.dx < 0) {
 				g2.drawImage(sprite, this.width, 0, this.width * -1, this.height, null);
 			} else {
