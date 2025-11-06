@@ -61,6 +61,7 @@ public class LevelModel implements TopLevelClass{
 			//Think of i and j as x and y
 			ArrayList<Tile> tiles = new ArrayList<>();
 			ArrayList<Enemy> enemies = new ArrayList<>();
+			ArrayList<Collectable> item = new ArrayList<>();
 			double spawnX = 0, spawnY = 0;
 			String line;
 			int j = -1;
@@ -77,7 +78,12 @@ public class LevelModel implements TopLevelClass{
 							spawnX = i*Tile.DEFAULT_SIZE;
 							spawnY = j*Tile.DEFAULT_SIZE; 
 							break;
-						
+						case '!':
+							enemies.add(new Enemy((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
+							break;
+						case '$':
+//							item.add(new Collectable((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
+							break;
 						default:
 							//Character not recognized -- print to sysout, but otherwise continue
 							System.out.println("Level level" + id + "data contained character: " + line.charAt(i) + ", which is not implemented.");
@@ -95,5 +101,10 @@ public class LevelModel implements TopLevelClass{
 	public double[] getSpawnCoords() {
 		// TODO Auto-generated method stub
 		return activeLevel.getSpawnCoords();
+	}
+
+	public ArrayList<Enemy> getEnemies() {
+		// TODO Auto-generated method stub
+		return activeLevel.cloneEnemies();
 	}
 }

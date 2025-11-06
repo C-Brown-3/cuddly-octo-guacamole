@@ -57,8 +57,8 @@ public class Tile extends Drawable{
 	 * gets the bounds of the tiles
 	 * @return rectangle with provided bounds
 	 */
-	 public Rectangle getBounds() {
-	        return new Rectangle(drawX, drawY, width, height);
+	 public Rectangle2D.Double getBounds() {
+	        return new Rectangle2D.Double(x, y, width, height);
 	    }
 	 /**
 	  * draws the tile with given params on the screen

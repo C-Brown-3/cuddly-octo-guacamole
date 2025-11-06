@@ -15,8 +15,8 @@ public class Collectable extends Entity {
 	private BufferedImage sprite;
 	private boolean spriteLoaded = false;
 	
-	public Collectable(double x, double y) {
-		super(x, y);		
+	public Collectable(double x, double y, LevelModel levelModel) {
+		super(x, y, levelModel);		
 		
 		try {
 			sprite=ImageIO.read(Collectable.class.getResource("resources/yarn.png"));
@@ -30,12 +30,14 @@ public class Collectable extends Entity {
 	}
 	
 	public void draw(Graphics2D g2) {
-		if (spriteLoaded)	
-			g2.drawImage(sprite, drawX, drawY, width, height, null);
-        else {
+		if (spriteLoaded) {
+			g2.translate(drawX, drawY);
+			g2.drawImage(sprite, 0, 0, width, height, null);
+			g2.translate(-drawX, -drawY);
+		} else {
         	//back up if sprite is not loaded	
     		g2.setColor(Color.YELLOW);
-    		g2.fillOval(drawX,drawY,64,64);
+    		g2.fillOval((int) drawX, (int) drawY,64,64);
         }
 		
 		

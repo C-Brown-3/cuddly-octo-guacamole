@@ -40,15 +40,15 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         setPreferredSize(new Dimension(800, 600));
         setBackground(Color.WHITE);
 
+        levelModel = new LevelModel();
         hud = new Hud();
         collectableModel = new CollectableModel();
-        player = new Player(0, 0);
-        enemyModel = new EnemyModel();
-        levelModel = new LevelModel();
+        player = new Player(0, 0, levelModel, null);
+        enemyModel = new EnemyModel(levelModel);
         camera = new Camera(player, 400, 400);
         gameComponent = new GameComponent(hud, collectableModel, player, enemyModel, levelModel, camera);
         
-        timer = new Timer(30, e -> tick()); // 1/16 ms ~ 60 fps
+        timer = new Timer(16, e -> tick()); // 1/16 ms ~ 60 fps
         timer.start();
 
         addKeyListener(gameComponent);
@@ -78,6 +78,9 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 		for (Tile tile: levelModel.getTiles()) {
 			camera.calculateAndSetDrawXY(tile);
 		}
+		for(Enemy enemy: enemyModel.getEnemies()) {
+			camera.calculateAndSetDrawXY(enemy);
+		}
 	}
 
 	/**
@@ -91,6 +94,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         Graphics2D g2 = (Graphics2D) g;
         player.draw(g2);
         levelModel.draw(g2);
+        enemyModel.draw(g2);
     }
 
 	@Override
