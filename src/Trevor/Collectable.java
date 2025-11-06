@@ -15,8 +15,8 @@ public class Collectable extends Entity {
 	private BufferedImage sprite;
 	private boolean spriteLoaded = false;
 	
-	public Collectable(double x, double y, LevelModel levelModel) {
-		super(x, y, levelModel);		
+	public Collectable(double x, double y) {
+		super(x, y,null);		
 		
 		try {
 			sprite=ImageIO.read(Collectable.class.getResource("resources/yarn.png"));
@@ -39,7 +39,9 @@ public class Collectable extends Entity {
     		g2.setColor(Color.YELLOW);
     		g2.fillOval((int) drawX, (int) drawY,64,64);
         }
-		
+	}
+	public void tick() {
+		// TODO Auto-generated method stub
 		
 	}
 }

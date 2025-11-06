@@ -16,11 +16,12 @@ public class Level {
 	//private Tile stair;
 	private int id;//int to determine what level we are on
 
-	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, double spawnX, double spawnY) {
+	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, double spawnX, double spawnY,int id) {
 		this.tiles = tiles;
 		this.enemies = enemies;
 		this.spawnX = spawnX;
 		this.spawnY = spawnY;
+		this.id=id;
 	}
 	
 	/**
@@ -65,5 +66,7 @@ public class Level {
 		// TODO Auto-generated method stub
 		return id;
 	}
-	
+	public void setID(int id) {
+		this.id=id;
+	}
 }
