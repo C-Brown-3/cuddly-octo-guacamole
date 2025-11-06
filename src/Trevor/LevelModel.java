@@ -37,6 +37,7 @@ public class LevelModel implements TopLevelClass{
 		if (activeLevel == null) {
 			return -1;
 		}
+		
 		return activeLevel.getId();
 	}
 	
@@ -82,7 +83,8 @@ public class LevelModel implements TopLevelClass{
 							enemies.add(new Enemy((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
 							break;
 						case '$':
-							item.add(new Collectable((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
+//							item.add(new Collectable((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
+							break;
 						default:
 							//Character not recognized -- print to sysout, but otherwise continue
 							System.out.println("Level level" + id + "data contained character: " + line.charAt(i) + ", which is not implemented.");

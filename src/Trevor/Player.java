@@ -2,6 +2,7 @@ package Trevor;
 
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -18,13 +19,10 @@ import java.util.List;
  * @author Evie Hipwood
  * See CSSE220 Final Project Document for Resources Used
  */
-public class Player extends Entity implements TopLevelClass{
-    private int velocityY = 0;
-    private int speed = 5;
-    private boolean jumping = false;
+public class Player extends Entity implements TopLevelClass {
+	private static final String IMAGE_PATH = "cat.png";
     private final int gravity = 1;
     private final int jumpPower = -20;
-    private final int groundY = 744;
     private BufferedImage sprite;
     public HashMap<String, Boolean> hash;
 
@@ -37,64 +35,53 @@ public class Player extends Entity implements TopLevelClass{
      * @param x the initial x-coordinate of the player
      * @param y the initial y-coordinate of the player
      */
-    public Player(int x, int y, HashMap<String, Boolean> hash) {
-    	super(0, 0);
+    public Player(int x, int y, LevelModel levelModel, HashMap<String, Boolean> hash) {
+    	super(0, 0, levelModel);
         this.x = x;
         this.y = y;
         width = 64;
         height = 64;
         this.hash = hash;
 
-        try {
-            sprite = ImageIO.read(getClass().getResource("src/cat.png"));
-        } catch (IllegalArgumentException e) {
-            sprite = null;
-        } catch (IOException e) {
-        	sprite = null;
-        }
+        sprite = bufferImage(IMAGE_PATH);
     }
 
-    public Player() {
-		// TODO Auto-generated constructor stub
-    	super(0,0);
-	}
-
-	/**
+    /**
      * Updates the player's position, gravity, and collision detection
      * with the provided list of tiles.
      *
      * @param tiles a list of  objects that represent platforms or ground
      */
     public void update(List<Tile> tiles) {
-        int prevY = drawY;
-        y += velocityY;
-        velocityY += gravity;
+        double prevY = drawY;
+        y += dy;
+        dy += gravity;
 
-        Rectangle playerBounds = new Rectangle(drawX, drawY, (int) width, (int) height);
+        Rectangle2D.Double playerBounds = new Rectangle2D.Double(x, y, width, height);
 
         // Check collisions with all tiles
         for (Tile tile : tiles) {
-            Rectangle tileBounds = tile.getBounds();
+            Rectangle2D.Double tileBounds = tile.getBounds();
 
             // only check if moving downward
-            if (velocityY >= 0 && playerBounds.intersects(tileBounds)) {
-                int playerBottomPrev = prevY + (int) height;
+            if (dy >= 0 && playerBounds.intersects(tileBounds)) {
+                int playerBottomPrev = (int) prevY + (int) height;
                 int tileTop = tile.getTop();
 
                 if (playerBottomPrev <= tileTop) {
                     y = tileTop - height;
                     jumping = false;
-                    velocityY = 0;
+                    dy = 0;
                 }
             }
         }
 
         // ground collision
-        if (y + height >= groundY) {
-            y = groundY - height;
-            jumping = false;
-            velocityY = 0;
-        }
+//        if (y + height >= groundY) {
+//            y = groundY - height;
+//            jumping = false;
+//            velocityY = 0;
+//        }
     }
     /**
      * Makes the player jump if they are currently not already jumping.
@@ -102,18 +89,40 @@ public class Player extends Entity implements TopLevelClass{
     public void jump() {
         if (!jumping) {
             jumping = true;
-            velocityY = jumpPower;
+            dy = jumpPower;
         }
     }
-    public void movePlayer() {
+    
+    @Override
+    public void move() {
+    	
+    	
+    	//Apply Acceleration in the Direction pressed
     	if(hash.get("leftArrowPressed")) {
-            x -= 5;
+            d2x -= 0.5;
             facingRight=false; //turn right	
-    	}
-    	if(hash.get("rightArrowPressed")) {
-            x += 5;
+    	} else if(hash.get("rightArrowPressed")) {
+            d2x += 0.5;
             facingRight = true; //turn right	
+    	} else {
+    		d2x = 0;
     	}
+    	
+    	int velocityDirection = (int) (dx/Math.abs(dx));
+    	int accelerationDirection = (int) (d2x/Math.abs(d2x));
+    	
+    	//Sets a maximum acceleration for the player
+    	if (Math.abs(d2x) >= 1) {
+    		d2x = accelerationDirection*1;
+    	}
+    	
+    	//Improves quality of turning around
+    	if(velocityDirection != accelerationDirection) {
+    		dx = dx/1.414 - 0.5*velocityDirection;
+    	}
+    	
+//    	System.out.println(dx + "||" + d2x + "[]" + velocityDirection + "||" + accelerationDirection);
+    	super.move();
     }
 
 
@@ -124,19 +133,20 @@ public class Player extends Entity implements TopLevelClass{
      * @param g the graphics context to draw the player
      */
     public void draw(Graphics2D g2) {
-  
+    	g2.translate(drawX, drawY);
         if (sprite != null) {
             if (facingRight) {
-                g2.drawImage(sprite, drawX, drawY, (int) width, (int) height, null);
+                g2.drawImage(sprite, 0, 0, (int) width, (int) height, null);
             } else {
                
-                g2.drawImage(sprite, (int) (drawX + width), drawY, (int) -width, (int) height, null);
+                g2.drawImage(sprite, (int) width, 0, (int) -width, (int) height, null);
             }
         } else {
             g2.setColor(Color.YELLOW);
 //            System.out.println(drawX + ", " + drawY);
-            g2.fillRect(drawX, drawY, (int) width, (int) height);
+            g2.fillRect(0, 0, (int) width, (int) height);
         }
+        g2.translate(-drawX, -drawY);
     }
 
 	public void setCoords(double[] spawnCoords) {
@@ -146,14 +156,15 @@ public class Player extends Entity implements TopLevelClass{
 		
 	}
 
+	
 	/**
 	 * Every thing the player should do once per frame goes in this function
 	 */
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		movePlayer();
-		System.out.println(this.x + "||" + this.y);
+		move();
+		//System.out.println(this.x + "||" + this.y);
 
 	}
 }

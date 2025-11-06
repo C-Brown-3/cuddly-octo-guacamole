@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
  */
 
 public class Enemy extends Entity{
-	private final static String resourcePath = "resources/vacuum.png";
+	private final static String resourcePath = "/src/resources/vacuum.png";
 	private final static double enemySpeed = 3.0;
 	private int height;
 	private int width;
@@ -31,7 +31,7 @@ public class Enemy extends Entity{
 	private boolean spriteLoaded = false;
 	
 	public Enemy(double x, double y) {
-		super(x, y);
+		super(x, y, null);
 		this.height = 64;
 		this.width = 64;
 		this.dx = enemySpeed; 
@@ -40,21 +40,25 @@ public class Enemy extends Entity{
 	}
 
 	public void draw(Graphics2D g2) {
-		if (spriteLoaded)
+		g2.translate(drawX, drawY);
+		if (spriteLoaded) {
 			//flips the sprite depending on the movement direction
-			if(this.dx < 0)
-				g2.drawImage(sprite, this.drawX + this.width, this.drawY, this.width * -1, this.height, null);
-			else {
-				g2.drawImage(sprite, this.drawX, this.drawY, this.width, this.height, null);
-			}
-            
-        else {
+			
+			if(this.dx < 0) {
+				g2.drawImage(sprite, this.width, 0, this.width * -1, this.height, null);
+			} else {
+				g2.drawImage(sprite, this.width, 0, this.width, this.height, null);
+			} 
+			
+		} else {
         	//back up if sprite is not loaded
-        	Rectangle rect = new Rectangle(drawX, drawY, width, height);
-    		g2.setColor(Color.RED);
-    		g2.fill(rect);
-    		g2.draw(rect);
-        }
+			Rectangle rect = new Rectangle(0, 0, width, height);
+			g2.setColor(Color.RED);
+			g2.fill(rect);
+			g2.draw(rect);
+		}
+		
+		g2.translate(-drawX, -drawY);
 	}
 	
 	public void tick() {

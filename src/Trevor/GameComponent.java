@@ -18,6 +18,7 @@ public class GameComponent implements KeyListener{
 	private LevelModel levelModel;
 	private Camera camera;
 	private HashMap<String,Boolean> keys = new HashMap<>();
+	private int id =1;
 	
 	public GameComponent(Hud hud, CollectableModel collectableModel, Player player, EnemyModel enemyModel, LevelModel levelModel, Camera camera) {
 		 this.hud = hud;
@@ -34,12 +35,11 @@ public class GameComponent implements KeyListener{
 	//keyboard controls
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)  {
-			keys.put("leftArrowPressed", true);
-			System.out.println("Screams");
-		}
+		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", true);
 		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", true);
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
+		if (key == KeyEvent.VK_Q) id--;
+		if (key == KeyEvent.VK_E) id++;	
 	}
 
 	   
@@ -55,14 +55,20 @@ public class GameComponent implements KeyListener{
 	 * All game logic which happens once per frame should be put in tick(),
 	 * which is called by GamePanel's tick function ~60 times per second
 	 */
+	public void incrementLevel() {
+		id++;
+	}
 	public void tick() {
 		// TODO Auto-generated method stub
-		if (levelModel.getLevelID() == -1) {
-			System.out.println("Hell on earth is here.");
+		if (levelModel.getLevelID() == -1||id == 0) {
 			loadLevel(1);
 		}
-		camera.tick();
+		if(levelModel.getLevelID() != id) {
+			loadLevel(id);
+		}
+		
 		player.tick();
+		camera.tick();
 	}
 	
 	public void loadLevel(int id) {
