@@ -5,12 +5,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import Nate.Hud;
+
 
 /**
  * The Enemy class represents enemies in the game.
@@ -72,8 +73,38 @@ public class Enemy extends Entity{
 		g2.translate(-drawX, -drawY);
 	}
 	
+	public void moveToEdge() {
+		boolean intersects=false;
+		Rectangle2D.Double Bounds;
+		
+		if(dx>0) {
+			Bounds = new Rectangle2D.Double(x+128, y+5, width, height);
+		}else {
+			Bounds = new Rectangle2D.Double(x-64, y+5, width, height);
+		}
+		
+		
+		
+		for (Tile tile : this.levelModel.getTiles()) {
+			Rectangle2D.Double tileBounds = tile.getBounds();
+			if(Bounds.intersects(tileBounds)) {
+		        //checks if the enemy is at the edge of a platform and switchs direction if it is
+		        	intersects=true;
+		        }
+		}
+		if(intersects) {
+			this.x=this.x+this.dx;
+			
+		}else{
+			this.dx=this.dx*(-1);
+		}
+		
+        
+	}
+	
+	
 	public void tick() {
 		// TODO Auto-generated method stub
-		
+		this.moveToEdge();
 	}
 }

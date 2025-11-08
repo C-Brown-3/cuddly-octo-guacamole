@@ -17,7 +17,7 @@ public abstract class Entity extends Drawable {
     protected boolean jumping = false;
     protected final double gravity = 1;
     protected double minDX = 0.2;
-    private LevelModel levelModel;
+    protected LevelModel levelModel;
     
 	public Entity(double x, double y, LevelModel levelModel) {
 		super();

@@ -61,6 +61,7 @@ public class GameComponent implements KeyListener{
 		
 		player.tick();
 		camera.tick();
+		enemyModel.tick();
 	}
 	
 	public void loadLevel(int id) {
