@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+
 /**
  * Class: Level
  * @author Trevor Goad
@@ -11,14 +12,17 @@ import java.util.ArrayList;
 public class Level {
 	private ArrayList<Tile> tiles;
 	private ArrayList<Enemy> enemies;
+	private ArrayList<Collectable> collectables;
 	private double spawnX;
 	private double spawnY;
 	//private Tile stair;
 	private int id;//int to determine what level we are on
 
-	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, double spawnX, double spawnY) {
+	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, ArrayList<Collectable> collectables, double spawnX, double spawnY) {
 		this.tiles = tiles;
 		this.enemies = enemies;
+		this.collectables=collectables;
+		
 		this.spawnX = spawnX;
 		this.spawnY = spawnY;
 	}
@@ -54,6 +58,14 @@ public class Level {
 			clonedEnemies.add(new Enemy(enemy.x, enemy.y));
 		}
 		return enemies;
+	}
+	
+	public ArrayList<Collectable> cloneCollectables() {
+		ArrayList<Collectable> clonedCollectables = new ArrayList<>();
+		for (Collectable collectable : collectables) {
+			clonedCollectables.add(new Collectable(collectable.x, collectable.y));
+		}
+		return collectables;
 	}
 	
 	public double[] getSpawnCoords() {

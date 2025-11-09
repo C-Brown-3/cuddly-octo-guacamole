@@ -2,7 +2,7 @@ package Carson;
 import java.awt.event.*;
 import java.util.HashMap;
 /**
- * Component (hopefully to be renamed GameComponent --Carson) controls the game logic. 
+ * GameComponent controls the game logic. 
  * 
  * Component is responsible for draw calls to all drawable game elements, controlling the timer, and capturing key inputs.
  * 
@@ -27,21 +27,26 @@ public class GameComponent implements KeyListener{
 		 this.levelModel = levelModel;
 		 this.camera = camera;
 		 this.keys.put("rightArrowPressed",false);
-		 this.keys.put("leftArrowPressed",false);		
+		 this.keys.put("leftArrowPressed",false);	
+		 this.keys.put("downArrowPressed", false);
 		 this.player.hash = this.keys;
 	}
 		
 	//keyboard controls
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_DOWN) keys.put("downArrowPressed", true);
 		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", true);
 		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", true);
+		
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
+		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
 	}
 
 	   
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_DOWN) keys.put("downArrowPressed", false);
 	    if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", false);
 	    if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", false);
 	}
@@ -60,12 +65,16 @@ public class GameComponent implements KeyListener{
 		
 		player.tick();
 		camera.tick();
+		enemyModel.tick();
+		player.collide(enemyModel, collectableModel,keys.get("downArrowPressed"),hud);
 	}
 	
 	public void loadLevel(int id) {
 		this.levelModel.loadLevel(1);
 		player.setCoords(levelModel.getSpawnCoords());
 		enemyModel.setEnemyList(levelModel.getEnemies());
+		collectableModel.setCollectableList(levelModel.getCollectables());
+		hud.reset(id);
 	}
 	
 

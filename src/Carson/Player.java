@@ -6,7 +6,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,13 +22,18 @@ import java.util.List;
  * See CSSE220 Final Project Document for Resources Used
  */
 public class Player extends Entity implements TopLevelClass {
-	private static final String IMAGE_PATH = "cat.png";
+	
     private final int gravity = 1;
-    private final int jumpPower = -20;
+    private final int jumpPower = -25;
     private BufferedImage sprite;
     public HashMap<String, Boolean> hash;
 
     private boolean facingRight = true;
+    private boolean spriteLoaded=false;
+    
+    private long lastHitTime = 0;
+    private long invulnerabilityDuration = 2000; // 2 seconds grace period after each enemy hit 
+    private boolean isInvulnerable = false;
     
     
     /**
@@ -43,7 +50,16 @@ public class Player extends Entity implements TopLevelClass {
         height = 64;
         this.hash = hash;
 
-        sprite = bufferImage(IMAGE_PATH);
+        
+        try {
+			sprite=ImageIO.read(Player.class.getResource("cat.png"));
+			spriteLoaded=true;
+		} catch (IOException e) {
+			
+			spriteLoaded = false;
+		} catch (IllegalArgumentException e) {
+			spriteLoaded = false;
+		}
     }
 
     /**
@@ -93,6 +109,10 @@ public class Player extends Entity implements TopLevelClass {
         }
     }
     
+    
+    /**
+     * The player movement required different collision logic to avoid going the wrong way through platforms
+     */
     @Override
     public void move() {
     	
@@ -156,7 +176,7 @@ public class Player extends Entity implements TopLevelClass {
      */
     public void draw(Graphics2D g2) {
     	g2.translate(drawX, drawY);
-        if (sprite != null) {
+        if (spriteLoaded) {
             if (facingRight) {
                 g2.drawImage(sprite, 0, 0, (int) width, (int) height, null);
             } else {
@@ -176,6 +196,52 @@ public class Player extends Entity implements TopLevelClass {
 		this.x = spawnCoords[0];
 		this.y = spawnCoords[1];
 		
+	}
+	
+	/**
+	 * Collide checks to see if the player has hit any enemies or collectables
+	 * @param enemies -- A reference to the EnemyModel
+	 * @param collectables -- A reference to the CollectableModel
+	 * @param downPressed -- If the key for collecting a collectable is being pressed
+	 * @param hud -- a reference to the Hud, which has the player data
+	 */
+	public void collide(EnemyModel enemies, CollectableModel collectables,boolean downPressed, Hud hud) {
+		   
+        
+  	  Rectangle2D.Double playerBounds = new Rectangle2D.Double(x,y,width,height);
+        long currentTime = System.currentTimeMillis();
+      		
+      // Enemy collisions- each enemy hit looses player a life, you have a 2 second grace period before you can be hit again
+        for (Enemy enemy : enemies.getEnemies()) {
+      	  Rectangle2D.Double enemyBounds = enemy.getBounds();
+      	  //enemyBounds.x, enemyBounds.y, enemyBounds.width, enemyBounds.height
+            if (playerBounds.intersects(enemyBounds)) {
+                if (currentTime - lastHitTime > invulnerabilityDuration) {
+                    hud.decrementLives();
+                    lastHitTime = currentTime;
+                    
+
+                    
+
+                    System.out.println("Player hit by enemy.");
+                }
+            
+        }
+        }
+      // Collectable collisions- Each yarn piece is only worth 10 points, cannot keep standing on yarn for more points
+      if(collectables.getCollectables()!=null) {
+    	  ArrayList<Collectable> newCollectable= new ArrayList<Collectable>();
+      	for (Collectable collectable : collectables.getCollectables()) {
+      		if (playerBounds.intersects(collectable.getBounds()) && downPressed) {
+      			if (hud != null && collectables.getCollectables()!=null) 
+      				hud.incrementScore(10);
+      				System.out.println("Collected yarn!");
+      		}else {
+      			newCollectable.add(collectable);
+      		}
+      	}
+      	collectables.setCollectableList(newCollectable);
+      }
 	}
 
 	

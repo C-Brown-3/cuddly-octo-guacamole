@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
     private LevelModel levelModel;
     private Camera camera;
     private GameComponent gameComponent;
+    
     //private boolean leftPressed, rightPressed;
 
     
@@ -42,7 +43,8 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 
         levelModel = new LevelModel();
         hud = new Hud();
-        collectableModel = new CollectableModel();
+        collectableModel = new CollectableModel(levelModel);
+        
         player = new Player(0, 0, levelModel, null);
         enemyModel = new EnemyModel(levelModel);
         camera = new Camera(player, 400, 400);
@@ -81,6 +83,10 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 		for(Enemy enemy: enemyModel.getEnemies()) {
 			camera.calculateAndSetDrawXY(enemy);
 		}
+		for(Collectable collectable: collectableModel.getCollectables()) {
+			camera.calculateAndSetDrawXY(collectable);
+		}
+		
 	}
 
 	/**
@@ -95,6 +101,8 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         player.draw(g2);
         levelModel.draw(g2);
         enemyModel.draw(g2);
+        collectableModel.draw(g2);
+        hud.draw(g2);
     }
 
 	@Override
