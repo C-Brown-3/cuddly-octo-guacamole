@@ -29,7 +29,7 @@ public class Collectable extends Entity {
 	
 	private BufferedImage sprite;
 	private boolean spriteLoaded = false;
-	  private boolean collected = false; // for collision logic
+	  private boolean collected = false; // for collision logic, down key boolean 
 
 	  
 	public Collectable() {
@@ -65,7 +65,7 @@ public class Collectable extends Entity {
 		
 	}
 	
-	// Stops Yarn from not going away after being collected. Keeps track of yarn
+	//  Keeps track of yarn collection
 	 public boolean isCollected() {
 	        return collected;
 	    }

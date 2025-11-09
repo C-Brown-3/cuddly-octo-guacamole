@@ -90,7 +90,7 @@ public class Component extends JComponent implements KeyListener{
 	//keyboard controls
 	 public void keyPressed(KeyEvent e) {
 	        int key = e.getKeyCode();
-	        if (key == KeyEvent.VK_DOWN) downPressed = true;
+	        if (key == KeyEvent.VK_DOWN) downPressed = true; 
 	        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) leftPressed = true;
 	        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) rightPressed = true;
 	        if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();

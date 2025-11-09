@@ -9,7 +9,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-
+/**
+ * The Collectable class represents collectables in the game.
+ * 
+ * The collectable is drawn on the screen and has sprite
+ * 
+ * @author Nate Nielsen
+ * See CSSE220 Final Project Document for Resources Used
+ */
 public class Collectable extends Entity {
 	
 	
