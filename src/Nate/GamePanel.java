@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 
         levelModel = new LevelModel();
         hud = new Hud();
-        collectableModel = new CollectableModel();
+        collectableModel = new CollectableModel(levelModel);
         player = new Player(0, 0, levelModel, null);
         enemyModel = new EnemyModel(levelModel);
         camera = new Camera(player, 400, 400);

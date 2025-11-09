@@ -116,4 +116,8 @@ public abstract class Entity extends Drawable {
 //            dy = 0;
 //        }
     }
+    
+    public Rectangle2D.Double getBounds(){
+		return new Rectangle2D.Double(x,y,width,height);
+	}
 }

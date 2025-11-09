@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+
+
 public class Collectable extends Entity {
 	private final int height = 64;
 	private final int width = 64;
@@ -39,7 +41,11 @@ public class Collectable extends Entity {
     		g2.setColor(Color.YELLOW);
     		g2.fillOval((int) drawX, (int) drawY,64,64);
         }
+	
 		
+		
+	}
+	public void tick() {
 		
 	}
 }

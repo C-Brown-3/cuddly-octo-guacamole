@@ -4,9 +4,13 @@ package Nate;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+
+
+
+
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,6 +31,9 @@ public class Player extends Entity implements TopLevelClass {
     public HashMap<String, Boolean> hash;
 
     private boolean facingRight = true;
+    private long lastHitTime = 0;
+    private long invulnerabilityDuration = 2000; // 2 seconds grace period after each enemy hit 
+    
     
     
     /**
@@ -156,6 +163,43 @@ public class Player extends Entity implements TopLevelClass {
 		
 	}
 
+	public void collide(EnemyModel enemies, CollectableModel collectables,boolean downPressed, Hud hud) {
+   
+        
+    	  Rectangle2D.Double playerBounds = new Rectangle2D.Double(x,y,width,height);
+          long currentTime = System.currentTimeMillis();
+        		
+        // Enemy collisions- each enemy hit looses player a life, you have a 2 second grace period before you can be hit again
+          for (Enemy enemy : enemies.getEnemies()) {
+        	  Rectangle2D.Double enemyBounds = enemy.getBounds();
+        	  //enemyBounds.x, enemyBounds.y, enemyBounds.width, enemyBounds.height
+              if (playerBounds.intersects(enemyBounds)) {
+            	  System.out.println("this works");
+                  if (currentTime - lastHitTime > invulnerabilityDuration) {
+                      hud.decrementLives();
+                      lastHitTime = currentTime;
+                      
+
+                      
+
+                      System.out.println("Player hit by enemy.");
+                  }
+              
+          }
+          }
+        // Collectable collisions- Each yarn piece is only worth 10 points, cannot keep standing on yarn for more points
+        if(collectables.getCollectables()!=null) {
+        	for (Collectable collectable : collectables.getCollectables()) {
+        		if (playerBounds.intersects(collectable.getBounds()) && downPressed) {
+        			if (hud != null) 
+        				hud.incrementScore(10);
+        				collectables.remove(collectable);
+        				System.out.println("Collected yarn!");
+        		}
+        	}    	
+        }
+	}
+
 	
 	/**
 	 * Every thing the player should do once per frame goes in this function
@@ -164,6 +208,7 @@ public class Player extends Entity implements TopLevelClass {
 	public void tick() {
 		// TODO Auto-generated method stub
 		move();
+		
 		//System.out.println(this.x + "||" + this.y);
 
 	}

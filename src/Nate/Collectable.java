@@ -39,7 +39,11 @@ public class Collectable extends Entity {
     		g2.setColor(Color.YELLOW);
     		g2.fillOval((int) drawX, (int) drawY,64,64);
         }
+	
 		
+		
+	}
+	public void tick() {
 		
 	}
 }

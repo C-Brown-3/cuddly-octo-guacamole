@@ -61,6 +61,10 @@ public abstract class Entity extends Drawable {
 		}
 	}
 	
+	public Rectangle2D.Double getBounds(){
+		return new Rectangle2D.Double(x,y,width,height);
+	}
+	
 	public void setLevelModel(LevelModel levelModel) {
 		this.levelModel = levelModel;
 	}

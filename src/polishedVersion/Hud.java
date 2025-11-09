@@ -107,8 +107,8 @@ public class Hud extends Drawable{
 			g2.draw(rect);
 			g2.fill(rect);
 			g2.setColor(Color.RED);
-			g2.drawString("GAME OVER ", 300, 300);
-			g2.drawString("Press ENTER to continue", 300, 400);
+			g2.drawString("GAME OVER ", 250, 200);
+			g2.drawString("Press ENTER to continue", 150, 300);
 		}else {
 			g2.setColor(Color.BLACK);
 			if(spriteLoaded) {

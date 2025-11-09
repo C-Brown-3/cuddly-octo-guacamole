@@ -2,7 +2,7 @@ package polishedVersion;
 import java.awt.event.*;
 import java.util.HashMap;
 /**
- * Component (hopefully to be renamed GameComponent --Carson) controls the game logic. 
+ * GameComponent controls the game logic. 
  * 
  * Component is responsible for draw calls to all drawable game elements, controlling the timer, and capturing key inputs.
  * 
@@ -62,6 +62,7 @@ public class GameComponent implements KeyListener{
 		player.tick();
 		camera.tick();
 		enemyModel.tick();
+		player.collide(enemyModel, collectableModel,false,hud);
 	}
 	
 	public void loadLevel(int id) {

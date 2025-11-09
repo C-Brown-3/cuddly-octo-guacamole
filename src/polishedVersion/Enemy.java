@@ -26,8 +26,7 @@ import javax.imageio.ImageIO;
 public class Enemy extends Entity{
 	
 	private final static double enemySpeed = 3.0;
-	private int height;
-	private int width;
+	
 	
 	private static int gravity = 3;
 	
@@ -71,14 +70,14 @@ public class Enemy extends Entity{
 			//flips the sprite depending on the movement direction
 			
 			if(this.dx < 0) {
-				g2.drawImage(sprite, this.width, 0, this.width * -1, this.height, null);
+				g2.drawImage(sprite, (int)this.width, 0, (int)this.width * -1, (int)this.height, null);
 			} else {
-				g2.drawImage(sprite, this.width, 0, this.width, this.height, null);
+				g2.drawImage(sprite, (int)this.width, 0, (int)this.width, (int)this.height, null);
 			} 
 			
 		} else {
         	//back up if sprite is not loaded
-			Rectangle rect = new Rectangle(0, 0, width, height);
+			Rectangle2D.Double rect = new Rectangle2D.Double(0, 0, width, height);
 			g2.setColor(Color.RED);
 			g2.fill(rect);
 			g2.draw(rect);
