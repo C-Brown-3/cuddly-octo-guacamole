@@ -13,6 +13,11 @@ import java.util.ArrayList;
  */
 public class LevelModel implements TopLevelClass{
 	private Level activeLevel;
+	private double[] levelBoundaries;
+	
+	public double[] getLevelBoundaries() {
+		return levelBoundaries;
+	}
 
 	public LevelModel() {
 		// TODO Auto-generated constructor stub
@@ -64,10 +69,15 @@ public class LevelModel implements TopLevelClass{
 			ArrayList<Collectable> item = new ArrayList<>();
 			double spawnX = 0, spawnY = 0;
 			String line;
+			int lasti = 0;
+			int lastj = 0;
 			int j = -1;
+			int i = 0;
 			while ((line = in.readLine()) !=  null) {
 				j += 1;
-				for (int i = 0; i < line.length(); i ++) {
+				lastj = j;
+				for (i = 0; i < line.length(); i ++) {
+					lasti = i;
 					char c = line.charAt(i);
 					switch (c) {
 						case '*':		//A regular tile
@@ -90,7 +100,8 @@ public class LevelModel implements TopLevelClass{
 					}
 				}
 			}
-			
+			double[] bounds = {lasti * 64.0, lastj * 64.0};
+			this.levelBoundaries = bounds;
 			this.activeLevel = new Level(tiles, enemies, item, spawnX, spawnY);
 		} catch (IOException e) {
 			System.out.println("Level loading failure.");

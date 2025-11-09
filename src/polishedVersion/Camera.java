@@ -14,11 +14,12 @@ public class Camera extends Entity{
 	private static final double Y_UPPER_SCROLL_BOUNDARY = 0.0;
 	private static final double Y_LOWER_SCROLL_BOUNDARY = 0.0;
 	
-	public Camera (Entity entityWatched, int screenWidth, int screenHeight) {
+	public Camera (Entity entityWatched, LevelModel levelModel, int screenWidth, int screenHeight) {
 		super(0, 0, null);
 		this.entityWatched = entityWatched;
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
+		this.levelModel = levelModel;
 	}
 
 	public Entity getEntityWatched() {
@@ -52,6 +53,27 @@ public class Camera extends Entity{
 //		System.out.println(screenWidth + " | " + screenHeight);
 		this.x = entityWatched.x + entityWatched.width/2 - screenWidth/2;
 		this.y = entityWatched.y + entityWatched.height/2 - screenHeight/2;
+		
+		if (this.levelModel != null) {
+			
+		
+			double levelX = this.levelModel.getLevelBoundaries()[0];
+			double levelY = this.levelModel.getLevelBoundaries()[1];		
+			if (this.x + screenWidth > levelX) {
+				this.x = this.levelModel.getLevelBoundaries()[0] - screenWidth;
+			} else if (this.x < 0) {
+				this.x = 0;
+			}
+			
+			if (this.y + screenWidth > levelY) {
+				this.y = levelY - screenWidth;
+			} else if (this.y < 0) {
+				this.y = 0;
+			}
+		
+//		System.out.println(levelX + "|" + this.x);
+		
+		}
 	}
 
 	public void tick() {

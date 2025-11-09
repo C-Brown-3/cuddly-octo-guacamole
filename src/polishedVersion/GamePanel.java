@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         
         player = new Player(0, 0, levelModel, null);
         enemyModel = new EnemyModel(levelModel);
-        camera = new Camera(player, 400, 400);
+        camera = new Camera(player, levelModel, 400, 400);
         gameComponent = new GameComponent(hud, collectableModel, player, enemyModel, levelModel, camera);
         
         timer = new Timer(16, e -> tick()); // 1/16 ms ~ 60 fps
