@@ -1,6 +1,7 @@
 package Carson;
 
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ public abstract class Entity extends Drawable {
 	double dy;
 	double d2x;
 	double d2y;
-	protected double prevX, prevY;
+	protected double prevX, prevY, futureX, futureY;
     protected boolean jumping = false;
     protected final double gravity = 1;
     protected double minDX = 0.2;
@@ -34,7 +35,7 @@ public abstract class Entity extends Drawable {
 	 * Provides Horizontal Friction to slow down the entity by the friction value
 	 * Entities which have constant velocities should probably have 0 for friction coefficients
 	 */
-	private void applyFriction() {
+	protected void applyFriction() {
 		if (Math.abs(dx) < minDX) {
 			dx = 0;
 		}
@@ -42,8 +43,8 @@ public abstract class Entity extends Drawable {
 	
 	public void move() {
 		x += dx;
-		dx += d2x;
 		y += dy;
+		dx += d2x;
 		dy += d2y + gravity;
 		
 		applyFriction();
@@ -70,7 +71,7 @@ public abstract class Entity extends Drawable {
      *
      * @param tiles a list of  objects that represent platforms or ground
      */
-    private void updateCollision() {
+    protected void updateCollision() {
     	
     	for (Tile tile : this.levelModel.getTiles()) {
     	Rectangle2D.Double tileBounds = tile.getBounds();
@@ -121,8 +122,74 @@ public abstract class Entity extends Drawable {
      * @param offsetX
      * @param offsetY
      */
-    private boolean[] testCollisionWithOffset(int offsetX, int offsetY, boolean affectPosition) {
+    protected boolean[] testCollisionWithOffset(double offsetX, double offsetY, double partialDX, double partialDY,  boolean affectPosition) {
+    	//Set up before and after movement
+    	double initialX = this.x + offsetX;
+    	double initialY = this.y + offsetY;
+    	double finalX = initialX + partialDX;
+    	double finalY = initialY + partialDY;
     	
-		return null;
+    	boolean xCollision = false, yCollision = false;
+    	
+    	for (Tile tile : this.levelModel.getTiles()) {
+    		//Set up tile boundaries
+    		Rectangle2D.Double tileBounds = tile.getBounds();
+    		double tileLeftX = tileBounds.x;
+    		double tileTopY = tileBounds.y;
+    		double tileRightX = tileBounds.x + tileBounds.width;
+    		double tileBottomY = tileBounds.y + tileBounds.height;
+    		
+    		//Check x collision first
+    		//Starts with seeing if an X collision is possible
+    		//ie: is the top of the entity inbetween the tile's top and bottom
+    		// or is the bottom of the entity inbetween the tile's top and bottom
+    		// the idea for this method comes from what I (Carson) did in 120.
+    		if((initialY > tileTopY & initialY < tileBottomY) || (initialY + height > tileTopY & initialY + height < tileBottomY) || (initialY == tileTopY & initialY + height == tileBottomY)){
+    			if ((finalX > tileLeftX & finalX < tileRightX) || (finalX + width > tileLeftX & finalX + width < tileRightX)) {
+    				xCollision = true;
+    				if(affectPosition) {
+    					//Check the direction we were going, move to fix collision going the opposite way
+    					if(dx >= 0) {
+    						//Entity is moving to the right, so it needs to be pushed left
+    						x = tileLeftX - width;
+    					} else {
+    						//Entity is moving to the left, so it needs to be pushed right
+    						x = tileRightX ;
+    					}
+    				}
+    			}
+    		}
+    		
+    		//Now Check y collision
+    		if((initialX > tileLeftX & initialX < tileRightX) || (initialX + width > tileLeftX & initialX + width < tileRightX) || (initialX == tileLeftX & initialX + width == tileRightX)){
+    			if ((finalY > tileTopY & finalY < tileBottomY) || (finalY + height > tileTopY & finalY + height < tileBottomY)) {
+    				yCollision = true;
+    				if(affectPosition) {
+    					//Check the direction we were going, move to fix collision going the opposite way
+    					if(dy >= 0) {
+    						//Entity is moving down, so it needs to be pushed up
+    						y = tileTopY - height;
+    						jumping = false;
+    					} else {
+    						//Entity is moving up, so it needs to be pushed down
+    						y = tileBottomY;
+    					}
+    				}
+    			}
+    		}
+    		
+    		
+    	}
+    	
+    	if(affectPosition) {
+    		if(!xCollision) {
+    			this.x = finalX;
+    		}
+    		if(!yCollision) {
+    			this.y = finalY;
+    		}
+    	}
+    	boolean[] returnArray = {xCollision, yCollision};
+		return returnArray;
 	}
 }

@@ -96,7 +96,29 @@ public class Player extends Entity implements TopLevelClass {
     @Override
     public void move() {
     	
+    	boolean[] xyCollisions = testCollisionWithOffset(0, 0, dx, dy, true);
+    	System.out.println(jumping + "|" + dy);
     	
+    	if (xyCollisions[0]) {
+    		dx = 0;
+    		d2x = d2x/2;
+    	}
+    	if (xyCollisions[1]) {
+    		dy = 0;
+    		d2y = d2y/2;
+    	}
+    	
+    	if(dy != 0) {
+    		//Assumption that the player is falling if dy isn't 0
+    		jumping = true;
+    	}
+    	
+		dx += d2x;
+		dy += d2y + gravity;
+		
+		super.applyFriction();
+//		super.updateCollision();
+		
     	//Apply Acceleration in the Direction pressed
     	if(hash.get("leftArrowPressed")) {
             d2x -= 0.5;
@@ -122,7 +144,7 @@ public class Player extends Entity implements TopLevelClass {
     	}
     	
 //    	System.out.println(dx + "||" + d2x + "[]" + velocityDirection + "||" + accelerationDirection);
-    	super.move();
+    	
     }
 
 
