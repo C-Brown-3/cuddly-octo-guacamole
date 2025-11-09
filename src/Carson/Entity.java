@@ -168,6 +168,8 @@ public abstract class Entity extends Drawable {
     	double initialY = this.y + offsetY;
     	double finalX = initialX + partialDX;
     	double finalY = initialY + partialDY;
+    	double levelX = this.levelModel.getLevelBoundaries()[0];
+    	double levelY = this.levelModel.getLevelBoundaries()[1];
     	
     	boolean xCollision = false, yCollision = false;
     	
@@ -221,13 +223,23 @@ public abstract class Entity extends Drawable {
     		
     	}
     	
-    	//If no collisions occur, set the x and y to the new x and y values
+    	
     	if(affectPosition) {
+    		//If no collisions occur, set the x and y to the new x and y values
     		if(!xCollision) {
     			this.x = finalX;
     		}
     		if(!yCollision) {
     			this.y = finalY;
+    		}
+    		
+    		//If we are affecting position, step back from the level bounds
+    		if (this.x < 0) {
+    			this.x = 0;
+    			xCollision = true;
+    		} else if (this.x + this.width > levelX) {
+    			this.x = levelX - this.width;
+    			xCollision = true;
     		}
     	}
     	boolean[] returnArray = {xCollision, yCollision};

@@ -117,7 +117,7 @@ public class Player extends Entity implements TopLevelClass {
     public void move() {
     	
     	boolean[] xyCollisions = testCollisionWithOffset(0, 0, dx, dy, true);
-    	System.out.println(jumping + "|" + dy);
+//    	System.out.println(jumping + "|" + dy);
     	
     	if (xyCollisions[0]) {
     		dx = 0;
@@ -164,6 +164,7 @@ public class Player extends Entity implements TopLevelClass {
     	}
     	
 //    	System.out.println(dx + "||" + d2x + "[]" + velocityDirection + "||" + accelerationDirection);
+    	
     	
     }
 
