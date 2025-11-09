@@ -5,9 +5,6 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,10 +109,36 @@ public class Player extends Entity implements TopLevelClass {
         }
     }
     
+    
+    /**
+     * The player movement required different collision logic to avoid going the wrong way through platforms
+     */
     @Override
     public void move() {
     	
+    	boolean[] xyCollisions = testCollisionWithOffset(0, 0, dx, dy, true);
+    	System.out.println(jumping + "|" + dy);
     	
+    	if (xyCollisions[0]) {
+    		dx = 0;
+    		d2x = d2x/2;
+    	}
+    	if (xyCollisions[1]) {
+    		dy = 0;
+    		d2y = d2y/2;
+    	}
+    	
+    	if(dy != 0) {
+    		//Assumption that the player is falling if dy isn't 0
+    		jumping = true;
+    	}
+    	
+		dx += d2x;
+		dy += d2y + gravity;
+		
+		super.applyFriction();
+//		super.updateCollision();
+		
     	//Apply Acceleration in the Direction pressed
     	if(hash.get("leftArrowPressed")) {
             d2x -= 0.5;
@@ -141,7 +164,7 @@ public class Player extends Entity implements TopLevelClass {
     	}
     	
 //    	System.out.println(dx + "||" + d2x + "[]" + velocityDirection + "||" + accelerationDirection);
-    	super.move();
+    	
     }
 
 
@@ -175,6 +198,13 @@ public class Player extends Entity implements TopLevelClass {
 		
 	}
 	
+	/**
+	 * Collide checks to see if the player has hit any enemies or collectables
+	 * @param enemies -- A reference to the EnemyModel
+	 * @param collectables -- A reference to the CollectableModel
+	 * @param downPressed -- If the key for collecting a collectable is being pressed
+	 * @param hud -- a reference to the Hud, which has the player data
+	 */
 	public void collide(EnemyModel enemies, CollectableModel collectables,boolean downPressed, Hud hud) {
 		   
         
