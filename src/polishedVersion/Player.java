@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -199,14 +200,17 @@ public class Player extends Entity implements TopLevelClass {
         }
       // Collectable collisions- Each yarn piece is only worth 10 points, cannot keep standing on yarn for more points
       if(collectables.getCollectables()!=null) {
+    	  ArrayList<Collectable> newCollectable= new ArrayList<Collectable>();
       	for (Collectable collectable : collectables.getCollectables()) {
       		if (playerBounds.intersects(collectable.getBounds()) && downPressed) {
-      			if (hud != null) 
+      			if (hud != null && collectables.getCollectables()!=null) 
       				hud.incrementScore(10);
-      				collectables.remove(collectable);
       				System.out.println("Collected yarn!");
+      		}else {
+      			newCollectable.add(collectable);
       		}
-      	}    	
+      	}
+      	collectables.setCollectableList(newCollectable);
       }
 	}
 

@@ -27,15 +27,18 @@ public class GameComponent implements KeyListener{
 		 this.levelModel = levelModel;
 		 this.camera = camera;
 		 this.keys.put("rightArrowPressed",false);
-		 this.keys.put("leftArrowPressed",false);		
+		 this.keys.put("leftArrowPressed",false);	
+		 this.keys.put("downArrowPressed", false);
 		 this.player.hash = this.keys;
 	}
 		
 	//keyboard controls
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_DOWN) keys.put("downArrowPressed", true);
 		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", true);
 		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", true);
+		
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
 		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
 	}
@@ -43,6 +46,7 @@ public class GameComponent implements KeyListener{
 	   
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_DOWN) keys.put("downArrowPressed", false);
 	    if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) keys.put("leftArrowPressed", false);
 	    if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) keys.put("rightArrowPressed", false);
 	}
@@ -62,7 +66,7 @@ public class GameComponent implements KeyListener{
 		player.tick();
 		camera.tick();
 		enemyModel.tick();
-		player.collide(enemyModel, collectableModel,false,hud);
+		player.collide(enemyModel, collectableModel,keys.get("downArrowPressed"),hud);
 	}
 	
 	public void loadLevel(int id) {
