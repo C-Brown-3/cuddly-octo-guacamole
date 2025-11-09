@@ -82,7 +82,7 @@ public class LevelModel implements TopLevelClass{
 							enemies.add(new Enemy((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
 							break;
 						case '$':
-//							item.add(new Collectable((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
+							item.add(new Collectable((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
 							break;
 						default:
 							//Character not recognized -- print to sysout, but otherwise continue
@@ -91,7 +91,7 @@ public class LevelModel implements TopLevelClass{
 				}
 			}
 			
-			this.activeLevel = new Level(tiles, enemies, spawnX, spawnY);
+			this.activeLevel = new Level(tiles, enemies, item, spawnX, spawnY);
 		} catch (IOException e) {
 			System.out.println("Level loading failure.");
 		}
@@ -106,5 +106,9 @@ public class LevelModel implements TopLevelClass{
 	public ArrayList<Enemy> getEnemies() {
 		// TODO Auto-generated method stub
 		return activeLevel.cloneEnemies();
+	}
+	public ArrayList<Collectable> getCollectables() {
+		// TODO Auto-generated method stub
+		return activeLevel.cloneCollectables();
 	}
 }

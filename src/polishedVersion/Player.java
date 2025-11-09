@@ -26,7 +26,7 @@ import java.util.List;
 public class Player extends Entity implements TopLevelClass {
 	
     private final int gravity = 1;
-    private final int jumpPower = -20;
+    private final int jumpPower = -25;
     private BufferedImage sprite;
     public HashMap<String, Boolean> hash;
 

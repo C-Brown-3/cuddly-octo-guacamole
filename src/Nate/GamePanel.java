@@ -81,6 +81,9 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 		for(Enemy enemy: enemyModel.getEnemies()) {
 			camera.calculateAndSetDrawXY(enemy);
 		}
+		for(Collectable collectable: collectableModel.getCollectables()) {
+			camera.calculateAndSetDrawXY(collectable);
+		}
 	}
 
 	/**
@@ -95,6 +98,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
         player.draw(g2);
         levelModel.draw(g2);
         enemyModel.draw(g2);
+        collectableModel.draw(g2);
         hud.draw(g2);
     }
 

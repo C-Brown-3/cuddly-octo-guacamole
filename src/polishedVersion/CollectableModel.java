@@ -11,7 +11,7 @@ public class CollectableModel implements TopLevelClass {
 	private LevelModel levelModel;
 	
 	public CollectableModel(LevelModel levelModel) {
-		// Possibly nothing to do for the initial enemy list.
+		// Possibly nothing to do for the initial collectable list.
 		this.levelModel = levelModel;
 	}
 	
