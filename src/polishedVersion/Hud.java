@@ -12,7 +12,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * This is the HUD class
+ * Hud represents the hud of the game. It displays the current level, lives and score. It also checks for when 
+ * there is a game over and prompts the player to reset.
  * 
  * @author Nate Nielsen
  * See CSSE220 Final Project Document for Resources Used
@@ -27,6 +28,11 @@ public class Hud extends Drawable{
 	private BufferedImage sprite;
 	private boolean spriteLoaded = false;
 	
+	
+	/**
+     * Constructs the hud class
+     * 
+     */
 	public Hud() {
 		this.lives=3;
 		this.score=0;
@@ -45,8 +51,9 @@ public class Hud extends Drawable{
 		
 	}
 	
-	public boolean gameOver() {
-		return this.lives <=0;
+	/*
+	public boolean gameOver(){
+		return lives<=0;
 	}
 	public int getScore() {
 		return this.score;
@@ -54,22 +61,43 @@ public class Hud extends Drawable{
 	public int getLevel() {
 		return this.level;
 	}
+	*/
+	/**
+     * Setter method for the level
+     */
 	public void updateLevel(int newLevel) {
 		this.level=newLevel;
 	}
+	/**
+     * Increments the score
+     *@param newScore is the amount the score will be increased by
+     */
 	public void incrementScore(int newScore) {
 		this.score+=newScore;
 	}
-	
+	/**
+     * Decrements the number of lives by one
+     */
 	public void decrementLives() {
 		this.lives-=1;
 	}
+	
+	/**
+     * Resets the hud
+     *@param level the hud will be reset to
+     */
 	public void reset(int level) {
 		this.lives=3;
 		this.score=0;
 		this.level=level;
 	}
-	
+	/**
+     * Draws the hud on the screen. Checks if the game is over and if it is
+     * puts a black rectangle to cover the screen and prompts the player to reset. 
+     * If the sprite is not loaded, the lives is represented by a number.
+     *
+     * @param g the graphics context to draw the player
+     */
 	public void draw(Graphics2D g2) {
 		
 		g2.setFont(new Font("Stencil", Font.PLAIN, 36));
