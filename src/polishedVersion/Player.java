@@ -185,7 +185,6 @@ public class Player extends Entity implements TopLevelClass {
       	  Rectangle2D.Double enemyBounds = enemy.getBounds();
       	  //enemyBounds.x, enemyBounds.y, enemyBounds.width, enemyBounds.height
             if (playerBounds.intersects(enemyBounds)) {
-          	  System.out.println("this works");
                 if (currentTime - lastHitTime > invulnerabilityDuration) {
                     hud.decrementLives();
                     lastHitTime = currentTime;
