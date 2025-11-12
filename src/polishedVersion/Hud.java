@@ -102,15 +102,18 @@ public class Hud extends Drawable{
 		
 		g2.setFont(new Font("Stencil", Font.PLAIN, 36));
 		if(this.lives <=0) {
-			Rectangle rect=new Rectangle(0,0,1200,1200);
+			Rectangle rect=new Rectangle(0,0,2000,2000);
 			g2.setColor(Color.BLACK);
 			g2.draw(rect);
 			g2.fill(rect);
 			g2.setColor(Color.RED);
 			g2.drawString("GAME OVER ", 250, 200);
-			g2.drawString("Press ENTER to continue", 150, 300);
+			g2.drawString("Press \"ENTER\" to continue", 150, 300);
+			g2.drawString("Press \"U\" to continue", 150, 400);
+			g2.drawString("Press \"D\" to continue", 150, 500);
+			
 		}else {
-			g2.setColor(Color.BLACK);
+			g2.setColor(Color.GREEN);
 			if(spriteLoaded) {
 				g2.drawString("Lives: ", 10, 30);
     		for (int i = 0; i < this.lives; i++) {
