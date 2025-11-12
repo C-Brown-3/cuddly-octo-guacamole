@@ -165,7 +165,6 @@ public class Player extends Entity implements TopLevelClass {
     	
 //    	System.out.println(dx + "||" + d2x + "[]" + velocityDirection + "||" + accelerationDirection);
     	
-    	
     }
 
 

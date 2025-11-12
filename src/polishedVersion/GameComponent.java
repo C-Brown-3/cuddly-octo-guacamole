@@ -41,8 +41,16 @@ public class GameComponent implements KeyListener{
 		
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
 		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
-		if (key == KeyEvent.VK_Q) loadLevel(levelModel.getLevelID() - 1);
-		if (key == KeyEvent.VK_E) loadLevel(levelModel.getLevelID() + 1);
+		if (key == KeyEvent.VK_Q) {
+			int nextLevel = levelModel.getLevelID() - 1;
+			System.out.println("Q" + nextLevel);
+			loadLevel(nextLevel);
+		}
+		if (key == KeyEvent.VK_E) {
+			int nextLevel = levelModel.getLevelID() + 1;
+			System.out.println("E" + nextLevel);
+			loadLevel(nextLevel);
+		}
 	}
 
 	   

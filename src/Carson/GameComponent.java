@@ -41,6 +41,16 @@ public class GameComponent implements KeyListener{
 		
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
 		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
+		if (key == KeyEvent.VK_Q) {
+			int nextLevel = levelModel.getLevelID() - 1;
+			System.out.println("Q" + nextLevel);
+			loadLevel(nextLevel);
+		}
+		if (key == KeyEvent.VK_E) {
+			int nextLevel = levelModel.getLevelID() + 1;
+			System.out.println("E" + nextLevel);
+			loadLevel(nextLevel);
+		}
 	}
 
 	   
@@ -70,11 +80,12 @@ public class GameComponent implements KeyListener{
 	}
 	
 	public void loadLevel(int id) {
-		this.levelModel.loadLevel(1);
-		player.setCoords(levelModel.getSpawnCoords());
-		enemyModel.setEnemyList(levelModel.getEnemies());
-		collectableModel.setCollectableList(levelModel.getCollectables());
-		hud.reset(id);
+		if(this.levelModel.loadLevel(id)) {
+			player.setCoords(levelModel.getSpawnCoords());
+			enemyModel.setEnemyList(levelModel.getEnemies());
+			collectableModel.setCollectableList(levelModel.getCollectables());
+			hud.reset(id);
+		}
 	}
 	
 
