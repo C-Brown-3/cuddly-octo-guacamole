@@ -69,6 +69,8 @@ public class GameComponent implements KeyListener{
 		camera.tick();
 		enemyModel.tick();
 		player.collide(enemyModel, collectableModel,keys.get("downArrowPressed"),hud);
+		if(collectableModel.getCollectables().size()==0)
+			loadLevel(hud.getLevel()+1);
 	}
 	
 	public void loadLevel(int id) {

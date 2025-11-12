@@ -58,10 +58,15 @@ public class Hud extends Drawable{
 	public int getScore() {
 		return this.score;
 	}
+	*/
+	
 	public int getLevel() {
 		return this.level;
 	}
-	*/
+	
+	public boolean winLevel() {
+		return score>=30;
+	}
 	/**
      * Setter method for the level
      */
