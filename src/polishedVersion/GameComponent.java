@@ -41,14 +41,14 @@ public class GameComponent implements KeyListener{
 		
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
 		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
-		if (key == KeyEvent.VK_Q) {
+		if (key == KeyEvent.VK_D) {
 			int nextLevel = levelModel.getLevelID() - 1;
-			System.out.println("Q" + nextLevel);
+			System.out.println("D" + nextLevel);
 			loadLevel(nextLevel);
 		}
-		if (key == KeyEvent.VK_E) {
+		if (key == KeyEvent.VK_U) {
 			int nextLevel = levelModel.getLevelID() + 1;
-			System.out.println("E" + nextLevel);
+			System.out.println("U" + nextLevel);
 			loadLevel(nextLevel);
 		}
 	}
