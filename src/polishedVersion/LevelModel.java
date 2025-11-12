@@ -53,13 +53,14 @@ public class LevelModel implements TopLevelClass{
 	 * Attempts to update the activeLevel variable to the level id provided. 
 	 * Sets the level to null on a failure.
 	 * @param id
+	 * @return 
 	 */
-	public void loadLevel(int id) {
+	public boolean loadLevel(int id) {
 		File levelFile = new File("src/levelData/level" + id + ".txt");
 		if (!levelFile.exists()) {
 			//Replace with a void level probably
 			activeLevel = null;
-//			return;
+			return false;
 		}
 		
 		try (BufferedReader in = new BufferedReader(new FileReader(levelFile))) {
@@ -105,8 +106,9 @@ public class LevelModel implements TopLevelClass{
 			this.activeLevel = new Level(tiles, enemies, item, spawnX, spawnY);
 		} catch (IOException e) {
 			System.out.println("Level loading failure.");
+			return false;
 		}
-		
+		return true;
 	}
 
 	public double[] getSpawnCoords() {
