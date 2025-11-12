@@ -41,6 +41,8 @@ public class GameComponent implements KeyListener{
 		
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_UP) player.jump();
 		if (key == KeyEvent.VK_ENTER) loadLevel(levelModel.getLevelID());
+		if (key == KeyEvent.VK_Q) loadLevel(levelModel.getLevelID() - 1);
+		if (key == KeyEvent.VK_E) loadLevel(levelModel.getLevelID() + 1);
 	}
 
 	   
@@ -70,7 +72,7 @@ public class GameComponent implements KeyListener{
 	}
 	
 	public void loadLevel(int id) {
-		this.levelModel.loadLevel(1);
+		this.levelModel.loadLevel(id);
 		player.setCoords(levelModel.getSpawnCoords());
 		enemyModel.setEnemyList(levelModel.getEnemies());
 		collectableModel.setCollectableList(levelModel.getCollectables());

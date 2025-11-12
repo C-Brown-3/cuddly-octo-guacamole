@@ -65,8 +65,8 @@ public class Camera extends Entity{
 				this.x = 0;
 			}
 			
-			if (this.y + screenWidth > levelY) {
-				this.y = levelY - screenWidth;
+			if (this.y + screenHeight > levelY) {
+				this.y = levelY - screenHeight;
 			} else if (this.y < 0) {
 				this.y = 0;
 			}
