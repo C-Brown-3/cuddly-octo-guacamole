@@ -18,13 +18,14 @@ public class Level {
 	//private Tile stair;
 	private int id;//int to determine what level we are on
 
-	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, ArrayList<Collectable> collectables, double spawnX, double spawnY) {
+	public Level(ArrayList<Tile> tiles, ArrayList<Enemy> enemies, ArrayList<Collectable> collectables, double spawnX, double spawnY, int id) {
 		this.tiles = tiles;
 		this.enemies = enemies;
 		this.collectables=collectables;
 		
 		this.spawnX = spawnX;
 		this.spawnY = spawnY;
+		this.id = id;
 	}
 	
 	/**
