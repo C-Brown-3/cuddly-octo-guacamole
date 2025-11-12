@@ -87,6 +87,12 @@ public class GameComponent implements KeyListener{
 			enemyModel.setEnemyList(levelModel.getEnemies());
 			collectableModel.setCollectableList(levelModel.getCollectables());
 			hud.reset(id);
+		}else {
+			this.levelModel.loadLevel(1);
+			player.setCoords(levelModel.getSpawnCoords());
+			enemyModel.setEnemyList(levelModel.getEnemies());
+			collectableModel.setCollectableList(levelModel.getCollectables());
+			hud.reset(-1);
 		}
 	}
 	
