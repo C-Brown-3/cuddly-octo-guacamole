@@ -113,7 +113,7 @@ public class Hud extends Drawable{
 			g2.drawString("Press \"D\" to continue", 150, 500);
 			
 		}else {
-			g2.setColor(Color.BLACK);
+			g2.setColor(Color.GREEN);
 			if(spriteLoaded) {
 				g2.drawString("Lives: ", 10, 30);
     		for (int i = 0; i < this.lives; i++) {
