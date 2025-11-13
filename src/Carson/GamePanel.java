@@ -64,9 +64,6 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
      */
     private void tick() {
 		// TODO Auto-generated method stub
-    	camera.setScreenWidth(getWidth());
-		camera.setScreenHeight(getHeight());
-    	
     	gameComponent.tick();
     	
     	updateDrawCoordinates();
@@ -76,6 +73,9 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
 
 	private void updateDrawCoordinates() {
 		// TODO Auto-generated method stub
+		camera.setScreenWidth(getWidth());
+		camera.setScreenHeight(getHeight());
+		camera.tick();
 		camera.calculateAndSetDrawXY(player);
 		for (Tile tile: levelModel.getTiles()) {
 			camera.calculateAndSetDrawXY(tile);
@@ -98,6 +98,7 @@ public class GamePanel extends JPanel implements ActionListener, ComponentListen
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        camera.draw(g2);
         player.draw(g2);
         levelModel.draw(g2);
         enemyModel.draw(g2);

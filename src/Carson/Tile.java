@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 /**
  * Class: Tile
  * @author Trevor Goad
@@ -14,16 +15,19 @@ public class Tile extends Drawable{
 	private int width = 64;
 	private int height = 64;
 	private Color color;
+	private BufferedImage bufferedImage;
 	
 	/**
 	 * Tile Constructor using only Position Elements
 	 * --Carson
+	 * @param bufferedImage 
 	 */
-	public Tile(double x, double y) {
+	public Tile(double x, double y, BufferedImage bufferedImage) {
 		super();
 		this.x = x;
 		this.y = y;
-		this.color = Color.black;
+		this.color = new Color(24, 44, 59);
+		this.bufferedImage = bufferedImage;
 	}
 	/**
 	 * Tiles is the blocks used by level to create the stage
@@ -65,11 +69,17 @@ public class Tile extends Drawable{
 	  * @param g2
 	  */
 	public void draw(Graphics2D g2) {
-//		System.out.println(this.x + ", " + this.y + "||" + this.drawX + ", " + this.drawY);
-		Rectangle2D.Double tile = new Rectangle2D.Double(this.drawX, this.drawY, width, height); 
-		g2.setColor(color); //Sets the color
-        g2.fill(tile);//Fills the tile with a color to make it easier to see;
-		g2.draw(tile);//draws the tile on the screen
+		if(this.bufferedImage != null) {
+			g2.translate(drawX, drawY);
+			g2.drawImage(bufferedImage, 0, 0, width, height, null);
+			g2.translate(-drawX, -drawY);
+		} else {
+//			System.out.println("Regular Draw");
+			Rectangle2D.Double tile = new Rectangle2D.Double(this.drawX, this.drawY, width, height); 
+			g2.setColor(color); //Sets the color
+        	g2.fill(tile);//Fills the tile with a color to make it easier to see;
+			g2.draw(tile);//draws the tile on the screen
+		}
 	}
 	/**
 	 * gets the top of the tile and returns it
