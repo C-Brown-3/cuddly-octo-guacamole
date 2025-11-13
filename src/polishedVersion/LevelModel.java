@@ -147,7 +147,7 @@ public class LevelModel implements TopLevelClass{
 						case '@':
 							spawnX = i*Tile.DEFAULT_SIZE;
 							spawnY = j*Tile.DEFAULT_SIZE; 
-							System.out.println(spawnX +"|"+ spawnY);
+//							System.out.println(spawnX +"|"+ spawnY);
 							break;
 						case '!':
 							enemies.add(new Enemy((double)i*Tile.DEFAULT_SIZE,(double)j*Tile.DEFAULT_SIZE));
