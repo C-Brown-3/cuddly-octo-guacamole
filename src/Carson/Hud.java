@@ -58,10 +58,15 @@ public class Hud extends Drawable{
 	public int getScore() {
 		return this.score;
 	}
+	*/
+	
 	public int getLevel() {
 		return this.level;
 	}
-	*/
+	
+	public boolean winLevel() {
+		return score>=100;
+	}
 	/**
      * Setter method for the level
      */
@@ -101,16 +106,24 @@ public class Hud extends Drawable{
 	public void draw(Graphics2D g2) {
 		
 		g2.setFont(new Font("Stencil", Font.PLAIN, 36));
-		if(this.lives <=0) {
+		if(this.level==-1) {
+			Rectangle rect=new Rectangle(0,0,2000,2000);
+			g2.setColor(Color.BLACK);
+			g2.draw(rect);
+			g2.fill(rect);
+			g2.setColor(Color.GREEN);
+			g2.drawString("You win! ", 250, 200);
+			g2.drawString("Press \"ENTER\" to continue", 150, 300);
+		}else if(this.lives <=0) {
 			Rectangle rect=new Rectangle(0,0,2000,2000);
 			g2.setColor(Color.BLACK);
 			g2.draw(rect);
 			g2.fill(rect);
 			g2.setColor(Color.RED);
-			g2.drawString("GAME OVER ", 250, 200);
+			g2.drawString("game over ", 250, 200);
 			g2.drawString("Press \"ENTER\" to continue", 150, 300);
-			g2.drawString("Press \"U\" to continue", 150, 400);
-			g2.drawString("Press \"D\" to continue", 150, 500);
+			g2.drawString("Press \"U\" to continue to next level", 150, 400);
+			g2.drawString("Press \"D\" to go to previous level", 150, 500);
 			
 		}else {
 			g2.setColor(Color.GREEN);

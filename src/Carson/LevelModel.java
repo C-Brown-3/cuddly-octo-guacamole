@@ -49,7 +49,6 @@ public class LevelModel implements TopLevelClass{
 			return;
 		}
 		activeLevel.draw(g2);
-		
 	}
 	
 	public int getLevelID() {
